@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     TextView register;
+    public void login1(View view){
+        startActivity(new Intent(MainActivity.this,MapsActivity.class));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
