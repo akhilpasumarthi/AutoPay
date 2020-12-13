@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.076" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/registerpassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -49,7 +49,7 @@
         app:layout_constraintVertical_bias="0.326" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/registercpassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -62,22 +62,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.46" />
 
+    <Spinner
+        android:id="@+id/spinnerCountries"
+        android:layout_width="125dp"
+        android:layout_height="43dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.572" />
+
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="211dp"
-        android:layout_height="44dp"
+        android:id="@+id/editTextPhone"
+        android:layout_width="186dp"
+        android:layout_height="39dp"
         android:ems="10"
         android:hint="Mobile Number"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.697"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.593" />
+        app:layout_constraintVertical_bias="0.57" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/carnumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -91,7 +102,7 @@
         app:layout_constraintVertical_bias="0.72" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonContinue"
         android:layout_width="183dp"
         android:layout_height="55dp"
         android:text="REGISTER"
