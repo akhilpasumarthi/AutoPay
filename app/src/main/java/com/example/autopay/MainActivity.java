@@ -10,11 +10,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     TextView register;
     EditText username,password;
     Button userlogin;
+    FirebaseFirestore fstore;
+    String userid;
+    FirebaseAuth fauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +35,24 @@ public class MainActivity extends AppCompatActivity {
         username=findViewById(R.id.username);
         password=findViewById(R.id.password);
         userlogin=findViewById(R.id.userlogin);
+        fauth=FirebaseAuth.getInstance();
+        fstore=FirebaseFirestore.getInstance();
         userlogin.setOnClickListener(new View.OnClickListener() {
+            String user=username.getText().toString().trim();
+            String pass=password.getText().toString().trim();
             @Override
             public void onClick(View v) {
-
+               // userid=fauth.getCurrentUser().getUid();
+                DocumentReference documentReference=fstore.collection("userd").document("users");
+                Map<String,Object> user=new HashMap<>();
+                user.put("username","hii");
+                user.put("password","hello");
+                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 SpannableString content = new SpannableString(mystring);
                 content.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
                 register.setText(content);
-               startActivity(new Intent(MainActivity.this,registration.class));
+                startActivity(new Intent(MainActivity.this,registration.class));
             }
         });
     }
