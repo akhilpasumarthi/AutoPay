@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.36" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/password"
         android:layout_width="238dp"
         android:layout_height="57dp"
         android:ems="10"
@@ -35,10 +35,9 @@
         app:layout_constraintVertical_bias="0.478" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/userlogin"
         android:layout_width="234dp"
         android:layout_height="57dp"
-        android:onClick="login1"
         android:text="LogIn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
