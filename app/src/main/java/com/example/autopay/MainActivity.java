@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    TextView register;
+    TextView register,dummy;
     EditText username,password;
     Button userlogin;
     FirebaseFirestore fstore;
@@ -37,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
         userlogin=findViewById(R.id.userlogin);
         fauth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
+        dummy=findViewById(R.id.dummy);
+        dummy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,Transactions_list.class));
+            }
+        });
         userlogin.setOnClickListener(new View.OnClickListener() {
             String user=username.getText().toString().trim();
             String pass=password.getText().toString().trim();

@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutoPay">
-        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".Transactions_list"></activity>
+        <activity android:name=".Dashboard" />
         <activity android:name=".otpauthentication" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
