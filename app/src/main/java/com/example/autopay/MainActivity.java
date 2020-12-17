@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     TextView register,dummy;
     EditText username,password;
     Button userlogin;
+    Button payment;
     FirebaseFirestore fstore;
     String userid;
     FirebaseAuth fauth;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         fauth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
         dummy=findViewById(R.id.dummy);
+        payment=findViewById(R.id.ether);
         dummy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 content.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
                 register.setText(content);
                 startActivity(new Intent(MainActivity.this,registration.class));
+            }
+        });
+        payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ethereum.class));
             }
         });
     }

@@ -44,4 +44,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     // FirebaseUI for Cloud Firestore
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
+    implementation 'org.web3j:core:4.1.0-android'
 }
