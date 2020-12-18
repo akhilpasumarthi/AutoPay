@@ -36,6 +36,7 @@ public class ethereum extends AppCompatActivity {
     private File walletDir;
     private File wallet;
     private File wallet1;
+    private File wp;
 
 
     @Override
@@ -43,7 +44,11 @@ public class ethereum extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ethereum);
         setupBouncyCastle();
-        walletPath="/storage/emulated/0/documents";
+        wp=Environment.getExternalStorageDirectory();
+        //walletPath="/storage/emulated/0/documents";
+        walletPath=wp.getAbsolutePath();
+        //toastAsync(walletPath);
+
 
 
     }
