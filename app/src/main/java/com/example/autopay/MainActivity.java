@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         dummy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,Transactions_list.class));
+                startActivity(new Intent(MainActivity.this,Dashboard.class));
             }
         });
         userlogin.setOnClickListener(new View.OnClickListener() {

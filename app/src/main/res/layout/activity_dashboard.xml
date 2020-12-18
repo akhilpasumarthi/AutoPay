@@ -6,16 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".Dashboard">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="260dp"
-        android:layout_height="51dp"
-        android:onClick="map"
-        android:text="Near AutoPay"
+    <FrameLayout
+        android:id="@+id/btmfragment"
+        android:layout_width="416dp"
+        android:layout_height="552dp"
+        app:layout_constraintBottom_toTopOf="@+id/btmnav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btmnav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintVertical_bias="0.998"
+        app:menu="@menu/bottom_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>
