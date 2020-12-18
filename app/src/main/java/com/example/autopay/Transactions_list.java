@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -26,6 +29,10 @@ public class Transactions_list extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions_list);
+        BottomNavigationView bottomnav=findViewById(R.id.btmnav1);
+        bottomnav.setSelectedItemId(R.id.history);
+        bottomnav.setOnNavigationItemSelectedListener(navlistener);
+
         firebaseFirestore=FirebaseFirestore.getInstance();
         flist=findViewById(R.id.flist);
         Query query=firebaseFirestore.collection("transactions");
@@ -48,10 +55,12 @@ public class Transactions_list extends AppCompatActivity {
                 if(model.getStatus().equals("unpaid")){
                     holder.status1.setVisibility(View.VISIBLE);
                     holder.paid.setVisibility(View.INVISIBLE);
+                   // holder.img.setImageResource(R.drawable.bunk1);
                 }else {
                     holder.status1.setVisibility(View.INVISIBLE);
                     holder.paid.setVisibility(View.VISIBLE);
                     holder.paid.setText(model.getStatus());
+                    //holder.img.setImageResource(R.drawable.parking);
                 }
             }
         };
@@ -59,17 +68,35 @@ public class Transactions_list extends AppCompatActivity {
          flist.setLayoutManager(new LinearLayoutManager(this));
          flist.setAdapter(adapter);
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener navlistener=
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.btmhome:
+                            startActivity(new Intent(Transactions_list.this,Dashboard.class));
+                            overridePendingTransition(0,0);
+                            return true;
+                        case R.id.history:
+                            return true;
+                    }
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);
+                    return false;
+                }
+            };
 
     private class transactionviewholder extends RecyclerView.ViewHolder {
         private TextView list_from,paid;
         private TextView list_to;
         private Button status1;
+        //private ImageView img;
         public transactionviewholder(@NonNull View itemView) {
             super(itemView);
             list_from=itemView.findViewById(R.id.listfrom);
             list_to=itemView.findViewById(R.id.listto);
             paid=itemView.findViewById(R.id.paid);
             status1=itemView.findViewById(R.id.status1);
+           // img=(ImageView) findViewById(R.id.pic);
         }
     }
 
