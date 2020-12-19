@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -31,7 +32,7 @@ public class registration extends AppCompatActivity {
     private RadioButton radioSexButton;
     Button createwallet1;
     FirebaseFirestore fstore;
-    String userid,number,g;
+    String number,g;
     FirebaseAuth fauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +53,25 @@ public class registration extends AppCompatActivity {
             public void onClick(View v) {
                 String reguser=registeruser.getText().toString().trim();
                 String regage=age.getText().toString().trim();
-                userid=fauth.getCurrentUser().getUid();
-                DocumentReference documentReference=fstore.collection("userd").document("userid");
+               FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
+
+                System.out.println(userid);
+                System.out.println("akhil");
+                DocumentReference documentReference=fstore.collection("user").document(userid.getUid());
+
                 Map<String,Object> user=new HashMap<>();
-                user.put("username",reguser);
-                user.put("Gender",g);
+                user.put("name",reguser);
+                user.put("gender",g);
                 user.put("age",regage);
                 user.put("number","8520949757");
+                user.put("rfid","number");
+                user.put("wallet","address");
+                user.put("privatekey","private");
+                user.put("token","tokennumber");
                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(registration.this, "successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(registration.this, "Created wallet Successful", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
