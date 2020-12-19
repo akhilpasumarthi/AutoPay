@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     Button userlogin;
     Button payment;
    // FirebaseFirestore fstore;
-    String userid;
     //FirebaseAuth fauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         dummy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,Dashboard.class));
+                startActivity(new Intent(MainActivity.this,registration.class));
             }
         });
 

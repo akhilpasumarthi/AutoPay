@@ -52,7 +52,7 @@ public class registration extends AppCompatActivity {
             public void onClick(View v) {
                 String reguser=registeruser.getText().toString().trim();
                 String regage=age.getText().toString().trim();
-                userid=fauth.getCurrentUser().getUid();
+                //userid=fauth.getCurrentUser().getUid();
                 DocumentReference documentReference=fstore.collection("userd").document("userid");
                 Map<String,Object> user=new HashMap<>();
                 user.put("username",reguser);
