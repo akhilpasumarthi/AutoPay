@@ -1,3 +1,4 @@
+
 package com.example.autopay;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,13 +42,14 @@ public class ethereum extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ethereum);
         setupBouncyCastle();
         wp=Environment.getExternalStorageDirectory();
         //walletPath="/storage/emulated/0/documents";
         walletPath=wp.getAbsolutePath();
-        //toastAsync(walletPath);
+        toastAsync(walletPath);
 
 
 
@@ -118,6 +120,7 @@ public class ethereum extends AppCompatActivity {
             toastAsync(e.getMessage());
         }
     }
+
     public void showTransactions(View view) {
 
         try {
