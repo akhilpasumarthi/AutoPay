@@ -57,7 +57,7 @@ public class registration extends AppCompatActivity {
 
                 System.out.println(userid);
                 System.out.println("akhil");
-                DocumentReference documentReference=fstore.collection("user").document(userid.getUid());
+                DocumentReference documentReference=fstore.collection("users").document(userid.getUid());
 
                 Map<String,Object> user=new HashMap<>();
                 user.put("name",reguser);
