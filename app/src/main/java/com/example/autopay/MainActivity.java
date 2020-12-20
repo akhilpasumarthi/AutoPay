@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             String pass=password.getText().toString().trim();
             @Override
             public void onClick(View v) {
-               // userid=fauth.getCurrentUser().getUid();
+//                userid=fauth.getCurrentUser().getUid();
                 DocumentReference documentReference=fstore.collection("userd").document("users");
                 Map<String,Object> user=new HashMap<>();
                 user.put("username","hii");
@@ -73,13 +73,20 @@ public class MainActivity extends AppCompatActivity {
                                         if (!task.isSuccessful()) {
                                             Log.w("myTag", "Fetching FCM registration token failed", task.getException());
                                             return;
-                                        }
-
-                                        // Get new FCM registration token
-                                        String token = task.getResult();
+                                        }String token = task.getResult();
                                         Log.w("mySuccessTag", token, task.getException());
-                                        // Log and toast
-                                        Toast.makeText(MainActivity.this, "Token generated", Toast.LENGTH_SHORT).show();
+//                                        DocumentReference documentReference1 = fstore.collection("users").document(userid);
+//                                        // Get new FCM registration token
+//                                        Map<String,Object> user1=new HashMap<>();
+//                                        user1.put("token_id", token);
+//                                        documentReference1.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//
+//                                                // Log and toast
+//                                                Toast.makeText(MainActivity.this, "Token generated", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        });
                                     }
                                 });
                     }
