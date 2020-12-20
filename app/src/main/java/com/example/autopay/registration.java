@@ -63,7 +63,7 @@ public class registration extends AppCompatActivity {
                 user.put("name",reguser);
                 user.put("gender",g);
                 user.put("age",regage);
-                user.put("number","8520949757");
+                user.put("number",number);
                 user.put("rfid","number");
                 user.put("wallet","address");
                 user.put("privatekey","private");
