@@ -58,7 +58,7 @@ public class registration extends AppCompatActivity {
                 user.put("username",reguser);
                 user.put("Gender",g);
                 user.put("age",regage);
-                user.put("number","8520949757");
+                user.put("number",number);
                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

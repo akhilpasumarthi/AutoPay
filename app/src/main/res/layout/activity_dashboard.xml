@@ -6,14 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Dashboard">
 
-    <FrameLayout
-        android:id="@+id/btmfragment"
-        android:layout_width="416dp"
-        android:layout_height="552dp"
-        app:layout_constraintBottom_toTopOf="@+id/btmnav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/btmnav"
@@ -27,4 +19,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.998"
         app:menu="@menu/bottom_navigation" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="156dp"
+        android:layout_height="57dp"
+        android:onClick="btn"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/btmnav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.129" />
 </androidx.constraintlayout.widget.ConstraintLayout>
