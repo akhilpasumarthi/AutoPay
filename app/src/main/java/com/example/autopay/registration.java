@@ -20,8 +20,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,16 +33,19 @@ public class registration extends AppCompatActivity {
     EditText registeruser,age;
     private RadioGroup radioSexGroup;
     private RadioButton radioSexButton;
-    Button createwallet1;
+    Button createwallet1,btn;
     FirebaseFirestore fstore;
     String number,g;
     FirebaseAuth fauth;
+    //public void dash(View view){
+     //   startActivity(new Intent(registration.this,Dashboard.class));
+    //}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registration);
         fauth=FirebaseAuth.getInstance();
         fstore=FirebaseFirestore.getInstance();
-        setContentView(R.layout.activity_registration);
         registeruser=findViewById(R.id.registeruser);
         number = getIntent().getStringExtra("number");
         age=findViewById(R.id.age);
@@ -48,6 +54,16 @@ public class registration extends AppCompatActivity {
         radioSexButton = (RadioButton) findViewById(selectedId);
         g=radioSexButton.getText().toString();
         createwallet1=(Button) findViewById(R.id.createwallet1);
+        btn=(Button) findViewById(R.id.btn1);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // CollectionReference cities = fstore.collection("user");
+               // Query query = cities.whereEqualTo("name", "prashanth");
+               ethereum r=new ethereum();
+               r.createWallet(v);
+            }
+        });
         createwallet1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,9 +3,11 @@ package com.example.autopay;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -51,8 +53,6 @@ public class ethereum extends AppCompatActivity {
         walletPath=wp.getAbsolutePath();
         toastAsync(walletPath);
 
-
-
     }
 
     public void connectToEthNetwork(View v) {
@@ -71,7 +71,6 @@ public class ethereum extends AppCompatActivity {
             toastAsync(e.getMessage());
         }
     }
-
     public void createWallet(View v){
 
         try{
