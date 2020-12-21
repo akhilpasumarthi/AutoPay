@@ -84,7 +84,7 @@ public class registration extends AppCompatActivity {
 
                 System.out.println(userid);
                 System.out.println("akhil");
-                DocumentReference documentReference=fstore.collection("user").document(userid.getUid());
+                DocumentReference documentReference=fstore.collection("users").document(userid.getUid());
 
                 Map<String,Object> user=new HashMap<>();
                 user.put("name",reguser);
@@ -94,11 +94,11 @@ public class registration extends AppCompatActivity {
                 user.put("rfid","number");
                 user.put("wallet","address");
                 user.put("privatekey","private");
-                user.put("token","tokennumber");
                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(registration.this, "Created wallet Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(registration.this,Dashboard.class));
                     }
                 });*/
             }

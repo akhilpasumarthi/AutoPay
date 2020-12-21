@@ -14,7 +14,7 @@
         android:background="@drawable/text_input_bg"
         android:fontFamily="@font/open_sans_semibold"
         android:padding="16dp"
-        android:hint="Enter Your Username"
+        android:hint="Enter Your Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
