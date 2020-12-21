@@ -2,6 +2,7 @@ package com.example.autopay;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Environment;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -26,8 +27,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.web3j.crypto.WalletUtils;
+import org.web3j.protocol.Web3j;
+
+import java.io.File;
+import java.security.Provider;
+import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class registration extends AppCompatActivity {
     EditText registeruser,age;
@@ -37,9 +46,16 @@ public class registration extends AppCompatActivity {
     FirebaseFirestore fstore;
     String number,g;
     FirebaseAuth fauth;
-    //public void dash(View view){
-     //   startActivity(new Intent(registration.this,Dashboard.class));
-    //}
+
+    public Web3j web3;
+    public final String password = "abc123";
+    public String walletPath;
+    public File walletDir;
+    public File wallet;
+    public File wallet1;
+    public File wp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +83,14 @@ public class registration extends AppCompatActivity {
         createwallet1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ethereum e=new ethereum();
+                String msg=e.createWallet(v);
+                String address=e.getAddress(v);
+                Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),address, Toast.LENGTH_LONG).show();
+
+/*
                 String reguser=registeruser.getText().toString().trim();
                 String regage=age.getText().toString().trim();
                FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
@@ -89,7 +113,7 @@ public class registration extends AppCompatActivity {
                         Toast.makeText(registration.this, "Created wallet Successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(registration.this,Dashboard.class));
                     }
-                });
+                });*/
             }
         });
     }
