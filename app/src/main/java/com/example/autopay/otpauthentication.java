@@ -26,7 +26,9 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
@@ -82,35 +84,41 @@ public class otpauthentication extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
                     FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
-                    DocumentReference documentReference=firestore.collection("users").document(userid.getUid());
-                    FirebaseMessaging.getInstance().getToken()
-                            .addOnCompleteListener(new OnCompleteListener<String>() {
-                                @Override
-                                public void onComplete(@NonNull Task<String> task) {
-                                    if (!task.isSuccessful()) {
-                                        return;
-                                    }
+                    Log.d("uidvamsi", userid.getUid());
 
-                                    // Get new FCM registration token
-                                    String token = task.getResult();
-                                    Intent intent;
-                                    if(documentReference!=null){
-                                        Map<String,Object> user=new HashMap<>();
-                                        user.put("token",token);
-                                        documentReference.update(user);
-                                        intent = new Intent(otpauthentication.this, Dashboard.class);
-                                    }else{
-                                        Map<String,Object> user=new HashMap<>();
-                                        user.put("token",token);
-                                        documentReference.set(user);
-                                        intent = new Intent(otpauthentication.this, registration.class);
-                                    }
-                                    intent.putExtra("number", phonenumber);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                    // Log and toast
-                                }
-                            });
+                    firestore.collection("users").document(userid.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            FirebaseMessaging.getInstance().getToken()
+                                    .addOnCompleteListener(new OnCompleteListener<String>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<String> task) {
+                                            if (!task.isSuccessful()) {
+                                                return;
+                                            }
+
+                                            // Get new FCM registration token
+                                            String token = task.getResult();
+                                            Intent intent;
+                                            if(documentSnapshot.exists()){
+                                                Map<String,Object> user=new HashMap<>();
+                                                user.put("token",token);
+                                                firestore.collection("users").document(userid.getUid()).update(user);
+                                                intent = new Intent(otpauthentication.this, Dashboard.class);
+                                            }else{
+                                                Map<String,Object> user=new HashMap<>();
+                                                user.put("token",token);
+                                                firestore.collection("users").document(userid.getUid()).set(user);
+                                                intent = new Intent(otpauthentication.this, registration.class);
+                                            }
+                                            intent.putExtra("number", phonenumber);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(intent);
+                                            // Log and toast
+                                        }
+                                    });
+                        }
+                    });
                 } else {
                     Toast.makeText(otpauthentication.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }

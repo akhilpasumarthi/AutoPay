@@ -67,11 +67,11 @@ public class registration extends AppCompatActivity {
                 user.put("rfid","number");
                 user.put("wallet","address");
                 user.put("privatekey","private");
-                user.put("token","tokennumber");
                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(registration.this, "Created wallet Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(registration.this,Dashboard.class));
                     }
                 });
             }
