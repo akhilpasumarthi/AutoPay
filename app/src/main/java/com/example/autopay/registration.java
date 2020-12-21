@@ -90,13 +90,11 @@ public class registration extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_LONG).show();
                 Toast.makeText(getApplicationContext(),address, Toast.LENGTH_LONG).show();
 
-/*
+
                 String reguser=registeruser.getText().toString().trim();
                 String regage=age.getText().toString().trim();
                FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
 
-                System.out.println(userid);
-                System.out.println("akhil");
                 DocumentReference documentReference=fstore.collection("users").document(userid.getUid());
 
                 Map<String,Object> user=new HashMap<>();
@@ -105,15 +103,16 @@ public class registration extends AppCompatActivity {
                 user.put("age",regage);
                 user.put("number",number);
                 user.put("rfid","number");
-                user.put("wallet","address");
+                user.put("walletaddress",address);
                 user.put("privatekey","private");
-                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(registration.this, "Created wallet Successful", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(registration.this,Dashboard.class));
                     }
-                });*/
+                });
             }
         });
     }
