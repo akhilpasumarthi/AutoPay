@@ -39,7 +39,7 @@ import java.util.Map;
 
 
 public class registration extends AppCompatActivity {
-    EditText registeruser,age;
+    EditText registeruser,age,gmail,pan;
     private RadioGroup radioSexGroup;
     private RadioButton radioSexButton;
     Button createwallet1,btn;
@@ -65,6 +65,8 @@ public class registration extends AppCompatActivity {
         registeruser=findViewById(R.id.registeruser);
         number = getIntent().getStringExtra("number");
         age=findViewById(R.id.age);
+        gmail=findViewById(R.id.gmail);
+        pan=findViewById(R.id.pan);
         radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
         int selectedId = radioSexGroup.getCheckedRadioButtonId();
         radioSexButton = (RadioButton) findViewById(selectedId);
@@ -93,6 +95,8 @@ public class registration extends AppCompatActivity {
 
                 String reguser=registeruser.getText().toString().trim();
                 String regage=age.getText().toString().trim();
+                String ugmail=gmail.getText().toString().trim();
+                String upan=pan.getText().toString().trim();
                FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
 
                 DocumentReference documentReference=fstore.collection("users").document(userid.getUid());
@@ -105,6 +109,8 @@ public class registration extends AppCompatActivity {
                 user.put("rfid","number");
                 user.put("walletaddress",address);
                 user.put("privatekey","private");
+                user.put("gmail",ugmail);
+                user.put("pan",upan);
 
                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
