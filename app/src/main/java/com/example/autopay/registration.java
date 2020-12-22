@@ -2,8 +2,10 @@ package com.example.autopay;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Environment;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -34,6 +36,7 @@ import org.web3j.protocol.Web3j;
 import java.io.File;
 import java.security.Provider;
 import java.security.Security;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +49,7 @@ public class registration extends AppCompatActivity {
     FirebaseFirestore fstore;
     String number,g;
     FirebaseAuth fauth;
+    DatePickerDialog datePickerDialog;
 
     public Web3j web3;
     public final String password = "abc123";
@@ -73,6 +77,32 @@ public class registration extends AppCompatActivity {
         g=radioSexButton.getText().toString();
         createwallet1=(Button) findViewById(R.id.createwallet1);
         btn=(Button) findViewById(R.id.btn1);
+
+        age.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(registration.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                age.setText(dayOfMonth + "/"
+                                        + (monthOfYear + 1) + "/" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
