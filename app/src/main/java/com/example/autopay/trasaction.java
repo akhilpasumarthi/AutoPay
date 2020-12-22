@@ -2,7 +2,7 @@ package com.example.autopay;
 
 public class trasaction {
     private String from;
-    private String timestamp;
+    private long timestamp;
     private String status;
     //private String type;
 
@@ -31,11 +31,11 @@ public class trasaction {
         this.status = status;
     }
 
-    public String getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
