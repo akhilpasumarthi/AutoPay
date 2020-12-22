@@ -8,35 +8,36 @@
 
     <EditText
         android:id="@+id/registeruser"
-        android:layout_width="221dp"
-        android:layout_height="54dp"
-        android:ems="10"
+        android:layout_width="230dp"
+        android:layout_height="55dp"
         android:background="@drawable/text_input_bg"
+        android:ems="10"
         android:fontFamily="@font/open_sans_semibold"
-        android:padding="16dp"
         android:hint="Enter Your Name"
         android:inputType="textPersonName"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.277" />
+        app:layout_constraintVertical_bias="0.195" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="272dp"
-        android:layout_height="46dp"
+        android:layout_width="293dp"
+        android:layout_height="43dp"
+        android:fontFamily="@font/open_sans_bold"
         android:text="WELCOME TO AUTOPAY"
-        android:textColor="#0B0A0A"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.584"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122" />
+        app:layout_constraintVertical_bias="0.076" />
 
     <RadioGroup
         android:id="@+id/radioSex"
@@ -48,7 +49,7 @@
         app:layout_constraintHorizontal_bias="0.769"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402">
+        app:layout_constraintVertical_bias="0.434">
 
         <RadioButton
             android:id="@+id/radioMale"
@@ -67,15 +68,15 @@
 
     <Button
         android:id="@+id/createwallet1"
-        android:layout_width="186dp"
-        android:layout_height="62dp"
+        android:layout_width="218dp"
+        android:layout_height="59dp"
         android:text="Createwallet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.691" />
+        app:layout_constraintVertical_bias="0.83" />
 
     <EditText
         android:id="@+id/age"
@@ -92,7 +93,7 @@
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.523" />
+        app:layout_constraintVertical_bias="0.32" />
 
     <TextView
         android:id="@+id/textView2"
@@ -105,17 +106,51 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.411" />
+        app:layout_constraintVertical_bias="0.441" />
 
     <Button
         android:id="@+id/btn1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
+        android:layout_width="119dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="24dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.182"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/gmail"
+        android:layout_width="228dp"
+        android:layout_height="58dp"
+        android:background="@drawable/text_input_bg"
+        android:ems="10"
+        android:fontFamily="@font/open_sans_semibold"
+        android:hint="Enter Your email"
+        android:inputType="textPersonName"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.557" />
+
+    <EditText
+        android:id="@+id/pan"
+        android:layout_width="230dp"
+        android:layout_height="53dp"
+        android:background="@drawable/text_input_bg"
+        android:ems="10"
+        android:fontFamily="@font/open_sans_semibold"
+        android:hint="PAN number"
+        android:inputType="textPersonName"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.685" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
