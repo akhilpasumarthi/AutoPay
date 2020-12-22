@@ -85,7 +85,7 @@
         android:background="@drawable/text_input_bg"
         android:ems="10"
         android:fontFamily="@font/open_sans_semibold"
-        android:hint="Enter Your Age"
+        android:hint="Select DOB.."
         android:inputType="textPersonName"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
