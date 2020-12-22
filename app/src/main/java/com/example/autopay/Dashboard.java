@@ -52,6 +52,9 @@ public class Dashboard extends AppCompatActivity {
                             startActivity(new Intent(Dashboard.this,Transactions_list.class));
                             overridePendingTransition(0,0);
                             return true;
+                        case R.id.profile:
+                            startActivity(new Intent(Dashboard.this,profile.class));
+                            return true;
                     }
                     //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);
                     return false;

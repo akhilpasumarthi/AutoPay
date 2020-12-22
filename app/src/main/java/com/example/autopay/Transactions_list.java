@@ -18,11 +18,13 @@ import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class Transactions_list extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
     private RecyclerView flist;
     private FirestoreRecyclerAdapter adapter;
     @Override
@@ -35,7 +37,9 @@ public class Transactions_list extends AppCompatActivity {
 
         firebaseFirestore=FirebaseFirestore.getInstance();
         flist=findViewById(R.id.flist);
-        Query query=firebaseFirestore.collection("transactions");
+        firebaseAuth = FirebaseAuth.getInstance();
+        Query query=firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid())
+                .collection("transactions").orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<trasaction> options=new FirestoreRecyclerOptions.Builder<trasaction>()
                 .setQuery(query,trasaction.class)
                 .build();
@@ -51,7 +55,7 @@ public class Transactions_list extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull transactionviewholder holder, int position, @NonNull trasaction model) {
                 holder.list_from.setText("From: "+model.getFrom());
-                holder.list_to.setText(model.getTimestamp());
+                holder.list_to.setText(String.valueOf(model.getTimestamp()));
                 if(model.getStatus().equals("unpaid")){
                     holder.status1.setVisibility(View.VISIBLE);
                     holder.paid.setVisibility(View.INVISIBLE);
