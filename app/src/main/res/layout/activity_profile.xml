@@ -87,6 +87,16 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_profile" />
-
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:gravity="bottom">
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btmnav2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_navigation" />
+    </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
