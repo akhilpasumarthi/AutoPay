@@ -4,13 +4,15 @@ public class trasaction {
     private String from;
     private long timestamp;
     private String status;
+    private long amount;
     //private String type;
 
     private void transaction(){}
-    private void transaction1(String from,String to){
+    private void transaction1(String from,long amount){
         this.from=from;
         this.timestamp=timestamp;
         this.status=status;
+        this.amount=amount;
         //this.type=type;
     }
 
@@ -39,7 +41,15 @@ public class trasaction {
         this.timestamp = timestamp;
     }
 
-   // public String getType() {
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
+
+    // public String getType() {
      //   return type;
     //}
 
