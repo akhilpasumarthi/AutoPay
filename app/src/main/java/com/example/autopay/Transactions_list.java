@@ -78,9 +78,9 @@ public class Transactions_list extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()){
                         case R.id.btmhome:
+                            startActivity(new Intent(Transactions_list.this,Dashboard.class));
                             return true;
                         case R.id.history:
-                            startActivity(new Intent(Transactions_list.this,Transactions_list.class));
                             overridePendingTransition(0,0);
                             return true;
                         case R.id.profile:
