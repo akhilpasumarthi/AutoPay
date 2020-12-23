@@ -68,10 +68,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:background="@drawable/profile_bk"/>
-
-                    <TextView
-                        android:text="Back to\nHome"
-                        style="@style/profileStyledBackButton" />
                 </RelativeLayout>
 
             </LinearLayout>

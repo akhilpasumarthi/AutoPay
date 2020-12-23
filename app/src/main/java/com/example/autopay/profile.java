@@ -20,7 +20,7 @@ public class profile extends AppCompatActivity {
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private TextView name, mobile, email, dob;
+    private TextView name, mobile, email, dob, gender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,7 @@ public class profile extends AppCompatActivity {
         mobile = findViewById(R.id.mobile);
         dob = findViewById(R.id.dob);
         email = findViewById(R.id.email);
+        gender = findViewById(R.id.gender);
 
         firebaseFirestore= FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -41,8 +42,9 @@ public class profile extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         name.setText(documentSnapshot.getString("name"));
                         mobile.setText(documentSnapshot.getString("number"));
-//                        email.setText(documentSnapshot.getString("email"));
-//                        dob.setText(documentSnapshot.getString("dob"));
+                        email.setText(documentSnapshot.getString("email"));
+                        dob.setText(documentSnapshot.getString("dob"));
+                        gender.setText(documentSnapshot.getString("gender"));
                     }
                 });
     }

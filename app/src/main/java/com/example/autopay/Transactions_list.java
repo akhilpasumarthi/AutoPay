@@ -58,7 +58,7 @@ public class Transactions_list extends AppCompatActivity {
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Transactions_list.this, "Successfull", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Transactions_list.this, "Successful", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -66,7 +66,8 @@ public class Transactions_list extends AppCompatActivity {
         firebaseFirestore=FirebaseFirestore.getInstance();
         flist=findViewById(R.id.flist);
         firebaseAuth = FirebaseAuth.getInstance();
-        Query query=firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid())
+        Query query=firebaseFirestore.collection("users").document(
+                "G5147xYn5uWaOGT6w4M4W83ajgT2")
                 .collection("transactions").orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<trasaction> options=new FirestoreRecyclerOptions.Builder<trasaction>()
                 .setQuery(query,trasaction.class)

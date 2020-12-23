@@ -76,8 +76,6 @@ public class registration extends AppCompatActivity {
         radioSexButton = (RadioButton) findViewById(selectedId);
         g=radioSexButton.getText().toString();
         createwallet1=(Button) findViewById(R.id.createwallet1);
-        btn=(Button) findViewById(R.id.btn1);
-
         age.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,12 +132,12 @@ public class registration extends AppCompatActivity {
                 Map<String,Object> user=new HashMap<>();
                 user.put("name",reguser);
                 user.put("gender",g);
-                user.put("age",regage);
+                user.put("dob",regage);
                 user.put("number",number);
                 user.put("rfid","number");
                 user.put("walletaddress",address);
                 user.put("privatekey","private");
-                user.put("gmail",ugmail);
+                user.put("email",ugmail);
                 user.put("pan",upan);
 
                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -152,5 +150,4 @@ public class registration extends AppCompatActivity {
             }
         });
     }
-
 }
