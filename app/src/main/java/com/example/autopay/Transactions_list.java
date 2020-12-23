@@ -67,7 +67,7 @@ public class Transactions_list extends AppCompatActivity {
         flist=findViewById(R.id.flist);
         firebaseAuth = FirebaseAuth.getInstance();
         Query query=firebaseFirestore.collection("users").document(
-                "G5147xYn5uWaOGT6w4M4W83ajgT2")
+                firebaseAuth.getCurrentUser().getUid())
                 .collection("transactions").orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<trasaction> options=new FirestoreRecyclerOptions.Builder<trasaction>()
                 .setQuery(query,trasaction.class)
