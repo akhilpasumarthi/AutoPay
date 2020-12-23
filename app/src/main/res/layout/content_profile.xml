@@ -23,7 +23,7 @@
         <RelativeLayout style="@style/profileDetailsLayout">
             <ImageView
                 android:id="@+id/nameImageView"
-                android:src="@drawable/ic_name"
+                android:src="@drawable/name"
                 style="@style/profileDetailsImage" />
 
             <TextView
@@ -33,7 +33,8 @@
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:text="developer"
+                android:id="@+id/name"
+                android:text=""
                 android:layout_toRightOf="@id/nameImageView"
                 style="@style/profileDetailsMiniText" />
 
@@ -43,7 +44,7 @@
         <RelativeLayout style="@style/profileDetailsLayout">
             <ImageView
                 android:id="@+id/mobileImageView"
-                android:src="@drawable/ic_mobile"
+                android:src="@drawable/smartphone"
                 style="@style/profileDetailsImage" />
 
             <TextView
@@ -52,7 +53,8 @@
                 style="@style/profileDetailsTextMain"/>
 
             <TextView
-                android:text="+91-8129999999"
+                android:id="@+id/mobile"
+                android:text=""
                 android:layout_toRightOf="@id/mobileImageView"
                 style="@style/profileDetailsMiniText" />
 
@@ -62,7 +64,7 @@
         <RelativeLayout style="@style/profileDetailsLayout">
             <ImageView
                 android:id="@+id/emailImageView"
-                android:src="@drawable/ic_email"
+                android:src="@drawable/email"
                 style="@style/profileDetailsImage" />
 
             <TextView
@@ -71,7 +73,8 @@
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:text="developer@appsnipp.com"
+                android:id="@+id/email"
+                android:text=""
                 android:layout_toRightOf="@id/emailImageView"
                 style="@style/profileDetailsMiniText" />
 
@@ -81,16 +84,17 @@
         <RelativeLayout style="@style/profileDetailsLayout">
             <ImageView
                 android:id="@+id/addressImageView"
-                android:src="@drawable/ic_address"
+                android:src="@drawable/sex"
                 style="@style/profileDetailsImage" />
 
             <TextView
-                android:text="Address"
+                android:text="Gender"
                 android:layout_toRightOf="@id/addressImageView"
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:text="Avenue 2nd Street NW SY."
+                android:id="@+id/gender"
+                android:text=""
                 android:layout_toRightOf="@id/addressImageView"
                 style="@style/profileDetailsMiniText" />
 
@@ -100,7 +104,7 @@
         <RelativeLayout style="@style/profileDetailsLayout">
             <ImageView
                 android:id="@+id/dobImageView"
-                android:src="@drawable/ic_dob"
+                android:src="@drawable/calendar"
                 style="@style/profileDetailsImage" />
 
             <TextView
@@ -109,7 +113,8 @@
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:text="12-05-1990"
+                android:id="@+id/dob"
+                android:text=""
                 android:layout_toRightOf="@id/dobImageView"
                 style="@style/profileDetailsMiniText" />
 

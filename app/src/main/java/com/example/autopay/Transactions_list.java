@@ -58,7 +58,7 @@ public class Transactions_list extends AppCompatActivity {
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Transactions_list.this, "Successfull", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Transactions_list.this, "Successful", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -66,7 +66,8 @@ public class Transactions_list extends AppCompatActivity {
         firebaseFirestore=FirebaseFirestore.getInstance();
         flist=findViewById(R.id.flist);
         firebaseAuth = FirebaseAuth.getInstance();
-        Query query=firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid())
+        Query query=firebaseFirestore.collection("users").document(
+                "G5147xYn5uWaOGT6w4M4W83ajgT2")
                 .collection("transactions").orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<trasaction> options=new FirestoreRecyclerOptions.Builder<trasaction>()
                 .setQuery(query,trasaction.class)
@@ -115,9 +116,12 @@ public class Transactions_list extends AppCompatActivity {
                     switch (item.getItemId()){
                         case R.id.btmhome:
                             startActivity(new Intent(Transactions_list.this,Dashboard.class));
-                            overridePendingTransition(0,0);
                             return true;
                         case R.id.history:
+                            overridePendingTransition(0,0);
+                            return true;
+                        case R.id.profile:
+                            startActivity(new Intent(Transactions_list.this,profile.class));
                             return true;
                     }
                     //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);

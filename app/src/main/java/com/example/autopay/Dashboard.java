@@ -22,7 +22,6 @@ public class Dashboard extends AppCompatActivity {
     public void btn(View view){
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
-        Log.d("uid", userid.getUid());
     }
     Button signout;
     @Override

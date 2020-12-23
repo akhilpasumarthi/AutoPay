@@ -108,17 +108,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.441" />
 
-    <Button
-        android:id="@+id/btn1"
-        android:layout_width="119dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="24dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/gmail"
         android:layout_width="228dp"
