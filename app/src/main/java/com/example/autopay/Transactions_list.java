@@ -92,7 +92,7 @@ public class Transactions_list extends AppCompatActivity {
                         public void onClick(View v) {
                             dialog.show();
                             amount.setText(model.getAmount()+"");
-                            fromtxt.setText("From: "+model.getFrom());
+                            fromtxt.setText("Address: "+model.getFrom());
                         }
                     });
                    // holder.img.setImageResource(R.drawable.bunk1);

@@ -104,7 +104,7 @@ public class otpauthentication extends AppCompatActivity {
                                                 Map<String,Object> user=new HashMap<>();
                                                 user.put("token",token);
                                                 firestore.collection("users").document(userid.getUid()).update(user);
-                                                intent = new Intent(otpauthentication.this, Dashboard.class);
+                                                intent = new Intent(otpauthentication.this, registration.class);
                                             }else{
                                                 Map<String,Object> user=new HashMap<>();
                                                 user.put("token",token);
