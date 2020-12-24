@@ -20,8 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashboard extends AppCompatActivity {
     public void btn(View view){
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
+        startActivity(new Intent(Dashboard.this,registration.class));
     }
     Button signout;
     @Override
