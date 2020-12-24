@@ -36,21 +36,8 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                try {
-                    ethereum e = new ethereum();
-                    String net = e.connectToEthNetwork(view);
-                    String address = e.sendTransaction(view);
-                    Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show();
-                }
-                catch (Exception e){
-                    String e1=e.toString();
-                    Toast.makeText(getApplicationContext(), e1, Toast.LENGTH_LONG).show();
-
-                }
-
-               // FirebaseAuth.getInstance().signOut();
-               // startActivity(new Intent(Dashboard.this,MainActivity.class));
+               FirebaseAuth.getInstance().signOut();
+               startActivity(new Intent(Dashboard.this,MainActivity.class));
             }
         });
     }
