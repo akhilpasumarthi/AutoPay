@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,8 +36,22 @@ public class Dashboard extends AppCompatActivity {
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(Dashboard.this,MainActivity.class));
+
+                try {
+                    ethereum e = new ethereum();
+                    String net = e.connectToEthNetwork(view);
+                    String address = e.sendTransaction(view);
+                    Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show();
+                }
+                catch (Exception e){
+                    String e1=e.toString();
+                    Toast.makeText(getApplicationContext(), e1, Toast.LENGTH_LONG).show();
+
+                }
+
+               // FirebaseAuth.getInstance().signOut();
+               // startActivity(new Intent(Dashboard.this,MainActivity.class));
             }
         });
     }

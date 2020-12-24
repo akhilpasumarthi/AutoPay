@@ -55,20 +55,29 @@ public class ethereum extends AppCompatActivity {
 
     }
 
-    public void connectToEthNetwork(View v) {
-        toastAsync("Connecting to Ethereum network...");
+    public String connectToEthNetwork(View v) {
+
+
+        setupBouncyCastle();
+        wp=Environment.getExternalStorageDirectory();
+        walletPath=wp.getAbsolutePath();
+        String password= "abc123";
+       // toastAsync("Connecting to Ethereum network...");
         // FIXME: Add your own API key here
         web3 = Web3j.build(new HttpService("https://ropsten.infura.io/v3/91b956a485de4d7681f8c1e82c65b4b9"));
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
             if(!clientVersion.hasError()){
-                toastAsync("Connected!");
+                String m1="Connected!";
+                return m1;
             }
             else {
-                toastAsync(clientVersion.getError().getMessage());
+                String m2=clientVersion.getError().getMessage();
+                return m2;
             }
         } catch (Exception e) {
-            toastAsync(e.getMessage());
+            String m3=e.getMessage();
+            return m3;
         }
     }
 
@@ -117,15 +126,23 @@ public class ethereum extends AppCompatActivity {
         }
     }
 
-    public void sendTransaction(View v){
+    public String sendTransaction(View v){
+
+        setupBouncyCastle();
+        wp=Environment.getExternalStorageDirectory();
+        walletPath=wp.getAbsolutePath();
+        String password= "abc123";
         try{
             wallet1=new File(walletPath+"/"+"UTC--2020-12-14T09-48-01.2Z--44910ea2d5263c7a61d22e500d44d7622489fd9b.json");
             Credentials credentials = WalletUtils.loadCredentials(password, wallet1);
-            TransactionReceipt receipt = Transfer.sendFunds(web3,credentials,"0x5a1f4e88944b0262760d802d3304578592950462",new BigDecimal(1),Convert.Unit.WEI).sendAsync().get();
-            toastAsync("Transaction complete: " +receipt.getTransactionHash());
+            TransactionReceipt receipt = Transfer.sendFunds(web3,credentials,"0xae53d8f385866a6bc876a91908b12ae1e2a1af73",new BigDecimal(10),Convert.Unit.WEI).sendAsync().get();
+            String hash=receipt.getTransactionHash();
+            return hash;
         }
         catch (Exception e){
-            toastAsync(e.getMessage());
+            String msg="Error in getting the address";
+            return msg;
+            //toastAsync(e.getMessage());
         }
     }
 
