@@ -100,7 +100,7 @@ public class otpauthentication extends AppCompatActivity {
                                             // Get new FCM registration token
                                             String token = task.getResult();
                                             Intent intent;
-                                            if(documentSnapshot.exists()){
+                                            if(documentSnapshot.getString("number")!=null){
                                                 Map<String,Object> user=new HashMap<>();
                                                 user.put("token",token);
                                                 firestore.collection("users").document(userid.getUid()).update(user);

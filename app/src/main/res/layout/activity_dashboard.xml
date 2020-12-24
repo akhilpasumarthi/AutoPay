@@ -289,18 +289,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.031" />
 
-    <Button
-        android:id="@+id/signout"
-        android:layout_width="113dp"
-        android:layout_height="45dp"
-        android:text="Sign Out"
-        app:layout_constraintBottom_toTopOf="@+id/btmnav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.899"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.124" />
-
     <TextView
         android:id="@+id/textView12"
         android:layout_width="167dp"

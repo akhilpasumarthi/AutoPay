@@ -100,16 +100,6 @@ public class registration extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // CollectionReference cities = fstore.collection("user");
-               // Query query = cities.whereEqualTo("name", "prashanth");
-               ethereum r=new ethereum();
-               r.createWallet(v);
-            }
-        });
         createwallet1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
