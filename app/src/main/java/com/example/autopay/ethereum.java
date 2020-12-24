@@ -41,6 +41,8 @@ public class ethereum extends AppCompatActivity {
     public File wp;
     public String res_msg;
     public String address;
+    public String address1;
+    public String add;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,7 @@ public class ethereum extends AppCompatActivity {
         wp=Environment.getExternalStorageDirectory();
         walletPath=wp.getAbsolutePath();
         String password= "abc123";
-       // toastAsync("Connecting to Ethereum network...");
+        // toastAsync("Connecting to Ethereum network...");
         // FIXME: Add your own API key here
         web3 = Web3j.build(new HttpService("https://ropsten.infura.io/v3/91b956a485de4d7681f8c1e82c65b4b9"));
         try {
@@ -117,16 +119,16 @@ public class ethereum extends AppCompatActivity {
         try {
             //wallet1=new File(walletPath+"/"+"UTC--2020-12-21T16-10-19.1Z--ae53d8f385866a6bc876a91908b12ae1e2a1af73.json");
             Credentials credentials = WalletUtils.loadCredentials(password, wallet);
-            address=credentials.getAddress();
-            return address;
+            address1=credentials.getAddress();
+            return address1;
         }
         catch (Exception e){
-            address="Error in getting the address";
-            return address;
+            address1="Error in getting the address";
+            return address1;
         }
     }
 
-    public String sendTransaction(View v){
+    public String sendTransaction(View v,long p){
 
         setupBouncyCastle();
         wp=Environment.getExternalStorageDirectory();
@@ -135,7 +137,7 @@ public class ethereum extends AppCompatActivity {
         try{
             wallet1=new File(walletPath+"/"+"UTC--2020-12-14T09-48-01.2Z--44910ea2d5263c7a61d22e500d44d7622489fd9b.json");
             Credentials credentials = WalletUtils.loadCredentials(password, wallet1);
-            TransactionReceipt receipt = Transfer.sendFunds(web3,credentials,"0xae53d8f385866a6bc876a91908b12ae1e2a1af73",new BigDecimal(10),Convert.Unit.WEI).sendAsync().get();
+            TransactionReceipt receipt = Transfer.sendFunds(web3,credentials,"0xae53d8f385866a6bc876a91908b12ae1e2a1af73",new BigDecimal(p),Convert.Unit.WEI).sendAsync().get();
             String hash=receipt.getTransactionHash();
             return hash;
         }
@@ -151,9 +153,13 @@ public class ethereum extends AppCompatActivity {
         try {
             EthGetBalance balanceWei = web3.ethGetBalance("0x44910ea2d5263c7a61d22e500d44d7622489fd9b", DefaultBlockParameterName.LATEST).sendAsync().get();
             toastAsync("Balance: " +balanceWei.getBalance());
+          //  address= String.valueOf(balanceWei.getBalance());
+            //return address;
         }
         catch (Exception e){
             toastAsync(e.getMessage());
+           // address="error";
+            //return address;
         }
     }
 
@@ -169,7 +175,7 @@ public class ethereum extends AppCompatActivity {
     }
     public void toastAsync(String message) {
 
-        runOnUiThread(() -> {
+       runOnUiThread(() -> {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         });
     }
