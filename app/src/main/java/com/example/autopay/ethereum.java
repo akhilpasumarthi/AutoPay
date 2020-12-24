@@ -104,8 +104,8 @@ public class ethereum extends AppCompatActivity {
         walletPath=wp.getAbsolutePath();
         String password= "abc123";
         try {
-            wallet1=new File(walletPath+"/"+"UTC--2020-12-21T16-10-19.1Z--ae53d8f385866a6bc876a91908b12ae1e2a1af73.json");
-            Credentials credentials = WalletUtils.loadCredentials(password, wallet1);
+            //wallet1=new File(walletPath+"/"+"UTC--2020-12-21T16-10-19.1Z--ae53d8f385866a6bc876a91908b12ae1e2a1af73.json");
+            Credentials credentials = WalletUtils.loadCredentials(password, wallet);
             address=credentials.getAddress();
             return address;
         }
