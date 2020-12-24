@@ -20,7 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashboard extends AppCompatActivity {
     public void btn(View view){
-        startActivity(new Intent(Dashboard.this,ethereum.class));
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
     }
     Button signout;
     @Override
@@ -49,6 +50,9 @@ public class Dashboard extends AppCompatActivity {
                         case R.id.history:
                             startActivity(new Intent(Dashboard.this,Transactions_list.class));
                             overridePendingTransition(0,0);
+                            return true;
+                        case R.id.profile:
+                            startActivity(new Intent(Dashboard.this,profile.class));
                             return true;
                     }
                     //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);

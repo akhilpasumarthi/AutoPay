@@ -8,5 +8,9 @@
         android:id="@+id/history"
         android:icon="@drawable/ic__arrows_24"
         android:title="History"/>
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic__arrows_24"
+        android:title="Profile"/>
 
 </menu>

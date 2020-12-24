@@ -10,5 +10,15 @@
     <color name="blue">#062CFD</color>
     <color name="violet">#5F0BF3</color>
     <color name="lightGray">#F2F2F2</color>
-    <color name="colorPrimary">#6177FC</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--colors for profile-->
+<!--    <color name="profilePrimaryDark">#FF3B30</color>-->
+    <color name="profileAccentColor">#F7F7F7</color>
+    <color name="whiteTextColor">#fff</color>
+    <color name="profileBackground">#fff</color>
+    <color name="blackTextColor">#000</color>
+    <color name="profileEditTextColor">#707070</color>
 </resources>

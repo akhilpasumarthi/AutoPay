@@ -32,10 +32,21 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private Spinner spinner;
     private EditText editText;
+
+    EditText username;
+    Button userlogin;
+   // FirebaseFirestore fstore;
+    //FirebaseAuth fauth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //number=findViewById(R.id.editTextPhone);
+        //userlogin=findViewById(R.id.buttonContinues);
+        //fauth=FirebaseAuth.getInstance();
+        //fstore=FirebaseFirestore.getInstance();
 
         spinner = findViewById(R.id.spinnerCountries);
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,CountryData.countryNames));

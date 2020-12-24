@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +15,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class Transactions_list extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
     private RecyclerView flist;
     private FirestoreRecyclerAdapter adapter;
+    Dialog dialog;
+    TextView amount,fromtxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +38,37 @@ public class Transactions_list extends AppCompatActivity {
         BottomNavigationView bottomnav=findViewById(R.id.btmnav1);
         bottomnav.setSelectedItemId(R.id.history);
         bottomnav.setOnNavigationItemSelectedListener(navlistener);
+        dialog=new Dialog(Transactions_list.this);
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.getWindow().getAttributes().windowAnimations=R.style.animation;
+        Button btnpay=dialog.findViewById(R.id.btnpay);
+        Button cancel=dialog.findViewById(R.id.cancel);
+        amount=dialog.findViewById(R.id.amount);
+        fromtxt=dialog.findViewById(R.id.fromtxt);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Transactions_list.this, "Cancelled", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        btnpay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Transactions_list.this, "Successful", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
 
         firebaseFirestore=FirebaseFirestore.getInstance();
         flist=findViewById(R.id.flist);
-        Query query=firebaseFirestore.collection("transactions");
+        firebaseAuth = FirebaseAuth.getInstance();
+        Query query=firebaseFirestore.collection("users").document(
+                firebaseAuth.getCurrentUser().getUid())
+                .collection("transactions").orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<trasaction> options=new FirestoreRecyclerOptions.Builder<trasaction>()
                 .setQuery(query,trasaction.class)
                 .build();
@@ -51,10 +84,18 @@ public class Transactions_list extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull transactionviewholder holder, int position, @NonNull trasaction model) {
                 holder.list_from.setText("From: "+model.getFrom());
-                holder.list_to.setText(model.getTimestamp());
+                holder.list_to.setText(String.valueOf(model.getTimestamp()));
                 if(model.getStatus().equals("unpaid")){
                     holder.status1.setVisibility(View.VISIBLE);
                     holder.paid.setVisibility(View.INVISIBLE);
+                    holder.status1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.show();
+                            amount.setText(model.getAmount()+"");
+                            fromtxt.setText("Address: "+model.getFrom());
+                        }
+                    });
                    // holder.img.setImageResource(R.drawable.bunk1);
                 }else {
                     holder.status1.setVisibility(View.INVISIBLE);
@@ -75,9 +116,12 @@ public class Transactions_list extends AppCompatActivity {
                     switch (item.getItemId()){
                         case R.id.btmhome:
                             startActivity(new Intent(Transactions_list.this,Dashboard.class));
-                            overridePendingTransition(0,0);
                             return true;
                         case R.id.history:
+                            overridePendingTransition(0,0);
+                            return true;
+                        case R.id.profile:
+                            startActivity(new Intent(Transactions_list.this,profile.class));
                             return true;
                     }
                     //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);
