@@ -41,8 +41,8 @@ public class Transactions_list extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     Dialog dialog;
     TextView amount,fromtxt;
-    FirebaseUser userpayaddress;
-    String payaddress;
+    FirebaseUser managerid;
+    String payaddress,fromuser;
     String selectedID;
     long r;
     @Override
@@ -88,6 +88,19 @@ public class Transactions_list extends AppCompatActivity {
                        .collection("transactions").document(selectedID).update(users);
                 //Toast.makeText(Transactions_list.this,msg, Toast.LENGTH_SHORT).show();
                 Toast.makeText(Transactions_list.this, "Success", Toast.LENGTH_SHORT).show();
+               // managerid=FirebaseAuth.getInstance().getCurrentUser();
+                DocumentReference documentReference=firebaseFirestore.collection("merchants")
+                        .document("r5uYd9Q0yjII1AstWBsm").collection("transactions").document();
+                Map<String,Object> payments=new HashMap<>();
+                payments.put("name",fromuser);
+                payments.put("amount",r);
+                payments.put("transactionhash",address);
+                documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Transactions_list.this, "Successfully stored in merchants", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 dialog.dismiss();
             }
         });
@@ -122,6 +135,7 @@ public class Transactions_list extends AppCompatActivity {
                             amount.setText(model.getAmount()+"");
                             fromtxt.setText("Address: "+model.getFrom());
                             r=model.getAmount();
+                            fromuser=model.getFrom();
                             payaddress=firebaseAuth.getCurrentUser().getUid();
                             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override
