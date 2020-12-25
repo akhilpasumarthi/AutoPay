@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +28,7 @@ public class payment_page extends AppCompatActivity {
     Button send;
     String to_address = "";
     String to_user = "";
+    TextView name;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     @Override
@@ -32,11 +36,23 @@ public class payment_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_page);
         toaddress = getIntent().getStringExtra("toaddress");
+        name = findViewById(R.id.name);
+
         payamount=findViewById(R.id.sendamount);
         smsg=findViewById(R.id.smsg);
         send=findViewById(R.id.send);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
+
+        firebaseFirestore.collection("users").whereEqualTo("walletaddress", toaddress)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                to_user = queryDocumentSnapshots.getDocuments().get(0).getString("name");
+            }
+        });
+        name.setText(to_user);
+
         Log.i("toaddress",toaddress);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +91,6 @@ public class payment_page extends AppCompatActivity {
                 catch (Exception e){
                     String e1=e.toString();
                     Toast.makeText(getApplicationContext(), e1, Toast.LENGTH_LONG).show();
-
                 }
             }
         });

@@ -19,11 +19,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import org.web3j.protocol.core.Ethereum;
+
 public class profile extends AppCompatActivity {
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
-    private TextView name, mobile, email, dob, gender;
+    private TextView name, mobile, email, dob, gender, balance;
     Button signout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,15 @@ public class profile extends AppCompatActivity {
         dob = findViewById(R.id.dob);
         email = findViewById(R.id.email);
         gender = findViewById(R.id.gender);
+        balance = findViewById(R.id.balance);
+
+        View view = findViewById(android.R.id.content).getRootView();
+        ethereum e =new ethereum();
+        e.connectToEthNetwork(view);
+        String text_balance = e.showBalance(view);
+        balance.setText(text_balance);
+
+
         signout = findViewById(R.id.signout);
         signout.setOnClickListener(new View.OnClickListener() {
             @Override

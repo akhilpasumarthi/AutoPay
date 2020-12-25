@@ -149,17 +149,19 @@ public class ethereum extends AppCompatActivity {
     }
 
 
-    public void showBalance(View v) {
+    public String showBalance(View v) {
         try {
             EthGetBalance balanceWei = web3.ethGetBalance("0x44910ea2d5263c7a61d22e500d44d7622489fd9b", DefaultBlockParameterName.LATEST).sendAsync().get();
             toastAsync("Balance: " +balanceWei.getBalance());
           //  address= String.valueOf(balanceWei.getBalance());
             //return address;
+            return balanceWei.getBalance().toString();
         }
         catch (Exception e){
             toastAsync(e.getMessage());
            // address="error";
             //return address;
+            return "0.0";
         }
     }
 

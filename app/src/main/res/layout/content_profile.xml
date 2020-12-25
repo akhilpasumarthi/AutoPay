@@ -122,11 +122,16 @@
 
         <View style="@style/proifleDetailsView" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <Button
             android:id="@+id/signout"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign Out"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
