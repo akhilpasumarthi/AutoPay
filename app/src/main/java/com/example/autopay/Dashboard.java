@@ -40,8 +40,8 @@ public class Dashboard extends AppCompatActivity {
                 try {
                     ethereum e = new ethereum();
                     String net = e.connectToEthNetwork(view);
-                    String address = e.sendTransaction(view);
                     Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
+                    String address = e.sendTransaction(view);
                     Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show();
                 }
                 catch (Exception e){
@@ -87,7 +87,7 @@ public class Dashboard extends AppCompatActivity {
         if(id == R.id.location){
             startActivity(new Intent(Dashboard.this,MapsActivity.class));
         }else if(id == R.id.scanner){
-            //
+            startActivity(new Intent(Dashboard.this,QR_Scanner.class));
         }else if(id == R.id.help){
             //
         }
