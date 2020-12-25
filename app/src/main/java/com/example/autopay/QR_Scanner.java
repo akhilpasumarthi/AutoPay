@@ -56,7 +56,7 @@ public class QR_Scanner extends AppCompatActivity {
                                     ethereum e = new ethereum();
                                     String net = e.connectToEthNetwork(view);
                                     //Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
-                                    String address = e.sendTransaction(view,amt);
+                                    String address = e.sendTransaction(view,amt, result.getText());
                                     Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
                                 }
                                 catch (Exception e){

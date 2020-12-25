@@ -44,6 +44,8 @@ public class Transactions_list extends AppCompatActivity {
     FirebaseUser userpayaddress;
     String payaddress;
     String selectedID;
+    String uid = "";
+    String wallet_address = "";
     long r;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +80,26 @@ public class Transactions_list extends AppCompatActivity {
                 ethereum e=new ethereum();
                 String msg=e.connectToEthNetwork(v);
                 String p=String.valueOf(r);
-                String address=e.sendTransaction(v,r);
-                Log.i("message1234", payaddress);
+                firebaseFirestore.collection("users")
+                        .document(payaddress)
+                        .collection("transactions").document(selectedID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        uid = documentSnapshot.getString("userid");
+                    }
+                });
+                firebaseFirestore.collection("users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        wallet_address = documentSnapshot.getString("wallet");
+                    }
+                });
+                String address=e.sendTransaction(v, r, wallet_address);
                 Map<String,Object> users=new HashMap<>();
                 users.put("transactionhash",address);
                 users.put("status","paid");
                 firebaseFirestore.collection("users")
-                       .document(payaddress)
+                       .document(firebaseAuth.getCurrentUser().getUid())
                        .collection("transactions").document(selectedID).update(users);
                 //Toast.makeText(Transactions_list.this,msg, Toast.LENGTH_SHORT).show();
                 Toast.makeText(Transactions_list.this, "Success", Toast.LENGTH_SHORT).show();
@@ -122,7 +137,6 @@ public class Transactions_list extends AppCompatActivity {
                             amount.setText(model.getAmount()+"");
                             fromtxt.setText("Address: "+model.getFrom());
                             r=model.getAmount();
-                            payaddress=firebaseAuth.getCurrentUser().getUid();
                             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

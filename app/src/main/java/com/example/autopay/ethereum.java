@@ -128,7 +128,7 @@ public class ethereum extends AppCompatActivity {
         }
     }
 
-    public String sendTransaction(View v,long p){
+    public String sendTransaction(View v,long p, String address){
 
         setupBouncyCastle();
         wp=Environment.getExternalStorageDirectory();
@@ -137,7 +137,7 @@ public class ethereum extends AppCompatActivity {
         try{
             wallet1=new File(walletPath+"/"+"UTC--2020-12-14T09-48-01.2Z--44910ea2d5263c7a61d22e500d44d7622489fd9b.json");
             Credentials credentials = WalletUtils.loadCredentials(password, wallet1);
-            TransactionReceipt receipt = Transfer.sendFunds(web3,credentials,"0xae53d8f385866a6bc876a91908b12ae1e2a1af73",new BigDecimal(p),Convert.Unit.WEI).sendAsync().get();
+            TransactionReceipt receipt = Transfer.sendFunds(web3,credentials,address,new BigDecimal(p),Convert.Unit.WEI).sendAsync().get();
             String hash=receipt.getTransactionHash();
             return hash;
         }
