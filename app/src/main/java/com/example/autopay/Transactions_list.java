@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,19 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Transactions_list extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
@@ -31,6 +41,10 @@ public class Transactions_list extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     Dialog dialog;
     TextView amount,fromtxt;
+    FirebaseUser userpayaddress;
+    String payaddress;
+    String selectedID;
+    long r;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +62,9 @@ public class Transactions_list extends AppCompatActivity {
         Button cancel=dialog.findViewById(R.id.cancel);
         amount=dialog.findViewById(R.id.amount);
         fromtxt=dialog.findViewById(R.id.fromtxt);
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        flist=findViewById(R.id.flist);
+        firebaseAuth = FirebaseAuth.getInstance();
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,14 +75,24 @@ public class Transactions_list extends AppCompatActivity {
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Transactions_list.this, "Successful", Toast.LENGTH_SHORT).show();
+                ethereum e=new ethereum();
+                String msg=e.connectToEthNetwork(v);
+                String p=String.valueOf(r);
+                String address=e.sendTransaction(v,r);
+                Log.i("message1234", payaddress);
+                Map<String,Object> users=new HashMap<>();
+                users.put("transactionhash",address);
+                users.put("status","paid");
+                firebaseFirestore.collection("users")
+                       .document(payaddress)
+                       .collection("transactions").document(selectedID).update(users);
+                //Toast.makeText(Transactions_list.this,msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Transactions_list.this, "Success", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
 
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        flist=findViewById(R.id.flist);
-        firebaseAuth = FirebaseAuth.getInstance();
+
         Query query=firebaseFirestore.collection("users").document(
                 firebaseAuth.getCurrentUser().getUid())
                 .collection("transactions").orderBy("timestamp", Query.Direction.DESCENDING);
@@ -94,6 +121,16 @@ public class Transactions_list extends AppCompatActivity {
                             dialog.show();
                             amount.setText(model.getAmount()+"");
                             fromtxt.setText("Address: "+model.getFrom());
+                            r=model.getAmount();
+                            payaddress=firebaseAuth.getCurrentUser().getUid();
+                            query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    List<DocumentSnapshot> temp = queryDocumentSnapshots.getDocuments();
+                                    selectedID = temp.get(position).getId();
+                                    Log.d("docID", selectedID);
+                                }
+                            });
                         }
                     });
                    // holder.img.setImageResource(R.drawable.bunk1);

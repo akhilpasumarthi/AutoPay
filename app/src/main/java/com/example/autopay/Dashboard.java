@@ -32,28 +32,6 @@ public class Dashboard extends AppCompatActivity {
         BottomNavigationView bottomnav = findViewById(R.id.btmnav);
         bottomnav.setSelectedItemId(R.id.btmhome);
         bottomnav.setOnNavigationItemSelectedListener(navlistener);
-        signout = findViewById(R.id.signout);
-        signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                try {
-                    ethereum e = new ethereum();
-                    String net = e.connectToEthNetwork(view);
-                    Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
-                    String address = e.sendTransaction(view);
-                    Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show();
-                }
-                catch (Exception e){
-                    String e1=e.toString();
-                    Toast.makeText(getApplicationContext(), e1, Toast.LENGTH_LONG).show();
-
-                }
-
-               // FirebaseAuth.getInstance().signOut();
-               // startActivity(new Intent(Dashboard.this,MainActivity.class));
-            }
-        });
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navlistener=
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -87,7 +65,7 @@ public class Dashboard extends AppCompatActivity {
         if(id == R.id.location){
             startActivity(new Intent(Dashboard.this,MapsActivity.class));
         }else if(id == R.id.scanner){
-            startActivity(new Intent(Dashboard.this,QR_Scanner.class));
+            //
         }else if(id == R.id.help){
             //
         }

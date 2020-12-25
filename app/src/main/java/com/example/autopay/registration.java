@@ -45,7 +45,7 @@ public class registration extends AppCompatActivity {
     EditText registeruser,age,gmail,pan;
     private RadioGroup radioSexGroup;
     private RadioButton radioSexButton;
-    Button createwallet1,btn;
+    Button createwallet1;
     FirebaseFirestore fstore;
     String number,g;
     FirebaseAuth fauth;
@@ -101,15 +101,7 @@ public class registration extends AppCompatActivity {
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // CollectionReference cities = fstore.collection("user");
-               // Query query = cities.whereEqualTo("name", "prashanth");
-               ethereum r=new ethereum();
-               r.createWallet(v);
-            }
-        });
+
         createwallet1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
