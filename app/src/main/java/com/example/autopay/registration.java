@@ -51,15 +51,6 @@ public class registration extends AppCompatActivity {
     FirebaseAuth fauth;
     DatePickerDialog datePickerDialog;
 
-    public Web3j web3;
-    public final String password = "abc123";
-    public String walletPath;
-    public File walletDir;
-    public File wallet;
-    public File wallet1;
-    public File wp;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
