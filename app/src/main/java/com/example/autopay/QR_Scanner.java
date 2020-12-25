@@ -6,6 +6,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ public class QR_Scanner extends AppCompatActivity {
     CodeScanner codeScanner;
     CodeScannerView scannView;
     TextView resultData;
+    EditText amttxt;
+    Button paybtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class QR_Scanner extends AppCompatActivity {
         scannView=findViewById(R.id.scannerView);
         codeScanner=new CodeScanner(this,scannView);
         resultData=findViewById(R.id.resultqr);
+        paybtn=findViewById(R.id.paybtn);
+        amttxt=findViewById(R.id.amttxt);
 
         codeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
@@ -42,19 +47,28 @@ public class QR_Scanner extends AppCompatActivity {
                     @Override
                     public void run() {
                         resultData.setText(result.getText());
+                        paybtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                        try {
-                            ethereum e = new ethereum();
-                            String net = e.connectToEthNetwork(resultData);
-                            //Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
-                            String address = e.sendTransaction(resultData);
-                            Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
-                        }
-                        catch (Exception e){
-                            String e1=e.toString();
-                            Toast.makeText(getApplicationContext(), e1, Toast.LENGTH_LONG).show();
+                                try {
+                                    Long amt=Long.parseLong(amttxt.getText().toString());
+                                    ethereum e = new ethereum();
+                                    String net = e.connectToEthNetwork(view);
+                                    //Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
+                                    String address = e.sendTransaction(view,amt);
+                                    Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
+                                }
+                                catch (Exception e){
+                                    String e1=e.toString();
+                                    Toast.makeText(getApplicationContext(), e1, Toast.LENGTH_LONG).show();
 
-                        }
+                                }
+
+                            }
+                        });
+
+
 
                     }
 

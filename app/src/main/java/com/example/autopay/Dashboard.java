@@ -65,6 +65,8 @@ public class Dashboard extends AppCompatActivity {
         if(id == R.id.location){
             startActivity(new Intent(Dashboard.this,MapsActivity.class));
         }else if(id == R.id.scanner){
+            startActivity(new Intent(Dashboard.this,QR_Scanner.class));
+
             //
         }else if(id == R.id.help){
             //
