@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,10 @@ public class Transactions_list extends AppCompatActivity {
     FirebaseUser userpayaddress;
     String payaddress;
     String selectedID;
-    String uid = "";
+    String fromuser;
+    String merchant_uid = "";
     String wallet_address = "";
+    String from_address = "";
     long r;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +88,11 @@ public class Transactions_list extends AppCompatActivity {
                         .collection("transactions").document(selectedID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        uid = documentSnapshot.getString("userid");
+                        merchant_uid = documentSnapshot.getString("userid");
+                        from_address = documentSnapshot.getString("walletaddress");
                     }
                 });
-                firebaseFirestore.collection("users").document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                firebaseFirestore.collection("merchants").document(merchant_uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         wallet_address = documentSnapshot.getString("wallet");
@@ -102,6 +106,19 @@ public class Transactions_list extends AppCompatActivity {
                        .document(firebaseAuth.getCurrentUser().getUid())
                        .collection("transactions").document(selectedID).update(users);
                 //Toast.makeText(Transactions_list.this,msg, Toast.LENGTH_SHORT).show();
+                DocumentReference documentReference=firebaseFirestore.collection("merchants")
+                        .document(merchant_uid).collection("transactions").document();
+                Map<String,Object> payments=new HashMap<>();
+                payments.put("from_wallet", from_address);
+                payments.put("name",fromuser);
+                payments.put("amount",r);
+                payments.put("transactionhash",address);
+                documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Transactions_list.this, "Successfully stored in merchants", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 Toast.makeText(Transactions_list.this, "Success", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
@@ -137,6 +154,7 @@ public class Transactions_list extends AppCompatActivity {
                             amount.setText(model.getAmount()+"");
                             fromtxt.setText("Address: "+model.getFrom());
                             r=model.getAmount();
+                            fromuser=model.getFrom();
                             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
