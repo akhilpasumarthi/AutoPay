@@ -16,8 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AutoPay">
-        <activity android:name=".payment_page"></activity>
-        <activity android:name=".send_ethers" />
+        <activity android:name=".qrcode"></activity>
+        <activity android:name=".payment_page" />
         <activity
             android:name=".profile"
             android:theme="@style/AppTheme.NoActionBar" />

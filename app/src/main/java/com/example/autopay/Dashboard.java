@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,6 +26,7 @@ public class Dashboard extends AppCompatActivity {
         FirebaseUser userid=FirebaseAuth.getInstance().getCurrentUser();
     }
     Button signout;
+    ImageView qrcodegen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,13 @@ public class Dashboard extends AppCompatActivity {
         BottomNavigationView bottomnav = findViewById(R.id.btmnav);
         bottomnav.setSelectedItemId(R.id.btmhome);
         bottomnav.setOnNavigationItemSelectedListener(navlistener);
+        qrcodegen=(ImageView) findViewById(R.id.qrcodegen);
+        qrcodegen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Dashboard.this,qrcode.class));
+            }
+        });
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navlistener=
             new BottomNavigationView.OnNavigationItemSelectedListener() {

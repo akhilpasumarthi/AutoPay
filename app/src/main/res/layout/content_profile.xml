@@ -121,16 +121,45 @@
         </RelativeLayout>
 
         <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/payment_status1"
+                android:src="@drawable/payment_24"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                style="@style/profileDetailsTextMain"
+                android:layout_toRightOf="@id/payment_status1"
+                android:text="Payment_status" />
+
+            <ToggleButton
+                android:id="@+id/toggle"
+                android:layout_width="76dp"
+                android:layout_height="36dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="19dp"
+                android:layout_marginBottom="2dp"
+                android:background="#F8FAFB" />
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/signout"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign Out"/>
+
+            <Button
+                android:id="@+id/signout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:backgroundTint="#203DDC"
+                android:text="Sign Out"
+                android:textColor="#F6F0F0" />
         </RelativeLayout>
 
     </LinearLayout>

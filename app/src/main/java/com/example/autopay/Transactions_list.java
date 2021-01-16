@@ -136,7 +136,6 @@ public class Transactions_list extends AppCompatActivity {
             @Override
             public transactionviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_single, parent,false);
-
                 return new transactionviewholder(view);
             }
 
@@ -160,7 +159,6 @@ public class Transactions_list extends AppCompatActivity {
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                     List<DocumentSnapshot> temp = queryDocumentSnapshots.getDocuments();
                                     selectedID = temp.get(position).getId();
-                                    Log.d("docID", selectedID);
                                 }
                             });
                         }
