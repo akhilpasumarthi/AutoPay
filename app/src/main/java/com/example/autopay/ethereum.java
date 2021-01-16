@@ -1,17 +1,14 @@
 package com.example.autopay;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.crypto.Credentials;
-import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
@@ -23,13 +20,11 @@ import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
-import java.io.File;
 
+import java.io.File;
 import java.math.BigDecimal;
-import java.security.KeyPairGenerator;
 import java.security.Provider;
 import java.security.Security;
-import android.content.Context.*;
 public class ethereum extends AppCompatActivity {
 
     public Web3j web3;
@@ -84,14 +79,10 @@ public class ethereum extends AppCompatActivity {
     }
 
     public String createWallet(View v){
-
-
         setupBouncyCastle();
         wp=Environment.getExternalStorageDirectory();
         walletPath=wp.getAbsolutePath();
          String password= "abc123";
-
-
         try{
             walletDir = new File(walletPath + "/" );
             String fileName =  WalletUtils.generateLightNewWalletFile(password,walletDir);
