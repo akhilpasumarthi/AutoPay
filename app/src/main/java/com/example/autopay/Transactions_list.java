@@ -1,10 +1,5 @@
 package com.example.autopay;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -30,7 +29,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,42 +81,55 @@ public class Transactions_list extends AppCompatActivity {
                 ethereum e=new ethereum();
                 String msg=e.connectToEthNetwork(v);
                 String p=String.valueOf(r);
+                Log.i("the userid is",firebaseAuth.getCurrentUser().getUid());
+                Log.i("Transaction id",selectedID);
                 firebaseFirestore.collection("users")
-                        .document(payaddress)
+                        .document(firebaseAuth.getCurrentUser().getUid())
                         .collection("transactions").document(selectedID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         merchant_uid = documentSnapshot.getString("userid");
-                        from_address = documentSnapshot.getString("walletaddress");
+                        firebaseFirestore.collection("merchants").document(merchant_uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                wallet_address = documentSnapshot.getString("wallet");
+                                Log.i("ram ka adda",wallet_address);
+                                String address=e.sendTransaction(v, r, wallet_address);
+                                Map<String,Object> users=new HashMap<>();
+                                users.put("transactionhash",address);
+                                users.put("status","paid");
+                                firebaseFirestore.collection("users")
+                                        .document(firebaseAuth.getCurrentUser().getUid())
+                                        .collection("transactions").document(selectedID).update(users);
+                                //Toast.makeText(Transactions_list.this,msg, Toast.LENGTH_SHORT).show();
+                                firebaseFirestore.collection("users")
+                                        .document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        from_address=documentSnapshot.getString("walletaddress");
+                                        DocumentReference documentReference=firebaseFirestore.collection("merchants")
+                                                .document(merchant_uid).collection("transactions").document();
+                                        Map<String,Object> payments=new HashMap<>();
+                                        payments.put("from_wallet", from_address);
+                                        payments.put("name",fromuser);
+                                        payments.put("amount",r);
+                                        payments.put("transactionhash",address);
+                                        documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(Transactions_list.this, "Successfully stored in merchants", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                });
+
+                            }
+                        });
+
                     }
-                });
-                firebaseFirestore.collection("merchants").document(merchant_uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        wallet_address = documentSnapshot.getString("wallet");
-                    }
-                });
-                String address=e.sendTransaction(v, r, wallet_address);
-                Map<String,Object> users=new HashMap<>();
-                users.put("transactionhash",address);
-                users.put("status","paid");
-                firebaseFirestore.collection("users")
-                       .document(firebaseAuth.getCurrentUser().getUid())
-                       .collection("transactions").document(selectedID).update(users);
-                //Toast.makeText(Transactions_list.this,msg, Toast.LENGTH_SHORT).show();
-                DocumentReference documentReference=firebaseFirestore.collection("merchants")
-                        .document(merchant_uid).collection("transactions").document();
-                Map<String,Object> payments=new HashMap<>();
-                payments.put("from_wallet", from_address);
-                payments.put("name",fromuser);
-                payments.put("amount",r);
-                payments.put("transactionhash",address);
-                documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(Transactions_list.this, "Successfully stored in merchants", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                 });
+
+
                 Toast.makeText(Transactions_list.this, "Success", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }

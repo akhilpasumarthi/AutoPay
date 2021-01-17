@@ -20,7 +20,7 @@ public class qrcode extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     ImageView qrImage;
-    //String qr;
+    String qr;
     TextView code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +36,21 @@ public class qrcode extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
               //  qr=documentSnapshot.getString("walletaddress");
                 code.setText(documentSnapshot.getString("walletaddress"));
+                qr=code.getText().toString();
+                QRGEncoder qrgEncoder = new QRGEncoder(qr,null, QRGContents.Type.TEXT,500);
+                try {
+                    Bitmap qrBits = qrgEncoder.encodeAsBitmap();
+                    qrImage.setImageBitmap(qrBits);
+                } catch (WriterException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
-        String data = code.getText().toString();
-            QRGEncoder qrgEncoder = new QRGEncoder(data,null, QRGContents.Type.TEXT,500);
-            try {
-                Bitmap qrBits = qrgEncoder.encodeAsBitmap();
-                qrImage.setImageBitmap(qrBits);
-            } catch (WriterException e) {
-                e.printStackTrace();
-            }
+
+        //String data = code.getText().toString();
+        //Log.i("the code is",qr);
+
 
 
     }

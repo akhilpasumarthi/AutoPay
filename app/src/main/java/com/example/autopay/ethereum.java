@@ -109,6 +109,7 @@ public class ethereum extends AppCompatActivity {
         String password= "abc123";
         try {
             //wallet1=new File(walletPath+"/"+"UTC--2020-12-21T16-10-19.1Z--ae53d8f385866a6bc876a91908b12ae1e2a1af73.json");
+
             Credentials credentials = WalletUtils.loadCredentials(password, wallet);
             address1=credentials.getAddress();
             return address1;
@@ -127,6 +128,7 @@ public class ethereum extends AppCompatActivity {
         String password= "abc123";
         try{
             wallet1=new File(walletPath+"/"+"UTC--2020-12-14T09-48-01.2Z--44910ea2d5263c7a61d22e500d44d7622489fd9b.json");
+            //Log.i("add", String.valueOf(wallet));
             Credentials credentials = WalletUtils.loadCredentials(password, wallet1);
             TransactionReceipt receipt = Transfer.sendFunds(web3,credentials,address,new BigDecimal(p),Convert.Unit.WEI).sendAsync().get();
             String hash=receipt.getTransactionHash();
@@ -144,7 +146,7 @@ public class ethereum extends AppCompatActivity {
         try {
             EthGetBalance balanceWei = web3.ethGetBalance("0x44910ea2d5263c7a61d22e500d44d7622489fd9b", DefaultBlockParameterName.LATEST).sendAsync().get();
             toastAsync("Balance: " +balanceWei.getBalance());
-          //  address= String.valueOf(balanceWei.getBalance());
+             //address= String.valueOf(balanceWei.getBalance());
             //return address;
             return balanceWei.getBalance().toString();
         }

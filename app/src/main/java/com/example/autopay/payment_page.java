@@ -26,8 +26,8 @@ public class payment_page extends AppCompatActivity {
     EditText payamount,smsg;
     Button send;
     String to_address = "";
-    String to_user = "";
-    TextView name;
+    String to_user = "",user="";
+    TextView name1;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     @Override
@@ -35,7 +35,7 @@ public class payment_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_page);
         toaddress = getIntent().getStringExtra("toaddress");
-        name = findViewById(R.id.name1);
+        name1 =(TextView) findViewById(R.id.name1);
 
         payamount=findViewById(R.id.sendamount);
         smsg=findViewById(R.id.smsg);
@@ -48,9 +48,10 @@ public class payment_page extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 to_user = queryDocumentSnapshots.getDocuments().get(0).getString("name");
+                name1.setText(to_user);
             }
         });
-        name.setText(to_user);
+
 
         Log.i("toaddress",toaddress);
         send.setOnClickListener(new View.OnClickListener() {
@@ -67,25 +68,27 @@ public class payment_page extends AppCompatActivity {
                             .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            to_user = documentSnapshot.getString("name");
+                            user = documentSnapshot.getString("name");
                             to_address = documentSnapshot.getString("walletaddress");
+                            Log.i("Name",to_user);
+                            DocumentReference documentReference=firebaseFirestore.collection("users")
+                                    .document(firebaseAuth.getCurrentUser().getUid())
+                                    .collection("transactions").document();
+                            Map<String,Object> payments=new HashMap<>();
+                            payments.put("from_wallet", to_address);
+                            payments.put("name", to_user);
+                            payments.put("amount", amt);
+                            payments.put("transactionhash",address);
+                            documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(payment_page.this,Dashboard.class));
+                                }
+                            });
                         }
                     });
-                    DocumentReference documentReference=firebaseFirestore.collection("users")
-                            .document(firebaseAuth.getCurrentUser().getUid())
-                            .collection("transactions").document();
-                    Map<String,Object> payments=new HashMap<>();
-                    payments.put("from_wallet", to_address);
-                    payments.put("name", to_user);
-                    payments.put("amount", amt);
-                    payments.put("transactionhash",address);
-                    documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(payment_page.this,Dashboard.class));
-                        }
-                    });
+
                 }
                 catch (Exception e){
                     String e1=e.toString();
