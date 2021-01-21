@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Dashboard extends AppCompatActivity {
-    public void btn(View view){
-        startActivity(new Intent(Dashboard.this,registration.class));
-    }
+    //public void btn(View view){
+       // startActivity(new Intent(Dashboard.this,registration.class));
+    //}
     Button signout;
     ImageView qrcodegen;
     @Override

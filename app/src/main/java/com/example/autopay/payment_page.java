@@ -28,6 +28,7 @@ public class payment_page extends AppCompatActivity {
     String to_address = "";
     String to_user = "",user="";
     TextView name1;
+    String ts;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     @Override
@@ -74,9 +75,15 @@ public class payment_page extends AppCompatActivity {
                             DocumentReference documentReference=firebaseFirestore.collection("users")
                                     .document(firebaseAuth.getCurrentUser().getUid())
                                     .collection("transactions").document();
+                            Long tsLong = System.currentTimeMillis();
+                            //ts = tsLong.toString();
                             Map<String,Object> payments=new HashMap<>();
+                            payments.put("address","");
+                            payments.put("status","paid");
+                            payments.put("timestamp",tsLong);
                             payments.put("from_wallet", to_address);
-                            payments.put("name", to_user);
+                            payments.put("from", user);
+                            payments.put("to", to_user);
                             payments.put("amount", amt);
                             payments.put("transactionhash",address);
                             documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
