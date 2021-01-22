@@ -12,21 +12,26 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class payment_page extends AppCompatActivity {
     String toaddress;
     EditText payamount,smsg;
     Button send;
-    String to_address = "";
+    String from_address = "";
     String to_user = "",user="";
+    String to_uid = "";
     TextView name1;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
@@ -69,21 +74,42 @@ public class payment_page extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             user = documentSnapshot.getString("name");
-                            to_address = documentSnapshot.getString("walletaddress");
+                            from_address = documentSnapshot.getString("walletaddress");
                             Log.i("Name",to_user);
                             DocumentReference documentReference=firebaseFirestore.collection("users")
                                     .document(firebaseAuth.getCurrentUser().getUid())
                                     .collection("transactions").document();
-                            Map<String,Object> payments=new HashMap<>();
-                            payments.put("from_wallet", to_address);
-                            payments.put("name", to_user);
-                            payments.put("amount", amt);
-                            payments.put("transactionhash",address);
-                            documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            Map<String,Object> from_doc=new HashMap<>();
+                            from_doc.put("from_wallet", toaddress);
+                            from_doc.put("name", to_user);
+                            from_doc.put("amount", amt);
+                            from_doc.put("transactionhash",address);
+
+                            Map<String,Object> to_doc = new HashMap<>();
+                            to_doc.put("from_wallet", from_address);
+                            to_doc.put("name", user);
+                            to_doc.put("amount", amt);
+                            to_doc.put("transactionhash",address);
+
+                            documentReference.set(from_doc).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(payment_page.this,Dashboard.class));
+                                    firebaseFirestore.collection("users").whereEqualTo("walletaddress", toaddress).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            to_uid = queryDocumentSnapshots.getDocuments().get(0).getId();
+                                        }
+                                    });
+                                    DocumentReference documentReference1 = firebaseFirestore.collection("users")
+                                            .document(to_uid)
+                                            .collection("transactions").document();
+                                    documentReference1.set(to_doc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(payment_page.this,Dashboard.class));
+                                        }
+                                    });
                                 }
                             });
                         }
