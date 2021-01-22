@@ -282,7 +282,7 @@
         android:layout_width="167dp"
         android:layout_height="47dp"
         android:layout_marginTop="60dp"
-        android:text="RS.2222.00"
+        android:text="0.00"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

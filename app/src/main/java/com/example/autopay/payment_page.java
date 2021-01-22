@@ -79,15 +79,26 @@ public class payment_page extends AppCompatActivity {
                             DocumentReference documentReference=firebaseFirestore.collection("users")
                                     .document(firebaseAuth.getCurrentUser().getUid())
                                     .collection("transactions").document();
+
+                            Long tsLong = System.currentTimeMillis();
+
                             Map<String,Object> from_doc=new HashMap<>();
-                            from_doc.put("from_wallet", toaddress);
-                            from_doc.put("name", to_user);
+                            from_doc.put("message",smsg.getText().toString());
+                            from_doc.put("status","paid");
+                            from_doc.put("timestamp",tsLong);
+                            from_doc.put("to_wallet", toaddress);
+                            from_doc.put("from", user);
+                            from_doc.put("to", to_user);
                             from_doc.put("amount", amt);
                             from_doc.put("transactionhash",address);
 
-                            Map<String,Object> to_doc = new HashMap<>();
+                            Map<String,Object> to_doc=new HashMap<>();
+                            to_doc.put("message",smsg.getText().toString());
+                            to_doc.put("status","paid");
+                            to_doc.put("timestamp",tsLong);
                             to_doc.put("from_wallet", from_address);
-                            to_doc.put("name", user);
+                            to_doc.put("from", user);
+                            to_doc.put("to", to_user);
                             to_doc.put("amount", amt);
                             to_doc.put("transactionhash",address);
 
@@ -98,16 +109,17 @@ public class payment_page extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                             to_uid = queryDocumentSnapshots.getDocuments().get(0).getId();
-                                        }
-                                    });
-                                    DocumentReference documentReference1 = firebaseFirestore.collection("users")
-                                            .document(to_uid)
-                                            .collection("transactions").document();
-                                    documentReference1.set(to_doc).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
+                                            DocumentReference documentReference1 = firebaseFirestore.collection("users")
+                                                    .document(to_uid)
+                                                    .collection("transactions").document();
+                                            documentReference1.set(to_doc).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(payment_page.this,Dashboard.class));
+                                                }
+                                            });
                                             Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(payment_page.this,Dashboard.class));
                                         }
                                     });
                                 }

@@ -142,7 +142,7 @@ public class ethereum extends AppCompatActivity {
     }
 
 
-    public String showBalance(View v) {
+    public String showBalance() {
         try {
             EthGetBalance balanceWei = web3.ethGetBalance("0x44910ea2d5263c7a61d22e500d44d7622489fd9b", DefaultBlockParameterName.LATEST).sendAsync().get();
             toastAsync("Balance: " +balanceWei.getBalance());

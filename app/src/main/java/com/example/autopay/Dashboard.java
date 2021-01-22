@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class Dashboard extends AppCompatActivity {
     //}
     Button signout;
     ImageView qrcodegen;
+    TextView balance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,11 @@ public class Dashboard extends AppCompatActivity {
         BottomNavigationView bottomnav = findViewById(R.id.btmnav);
         bottomnav.setSelectedItemId(R.id.btmhome);
         bottomnav.setOnNavigationItemSelectedListener(navlistener);
+        balance = findViewById(R.id.textView12);
         qrcodegen=(ImageView) findViewById(R.id.qrcodegen);
+        ethereum ether = new ethereum();
+        String bal = ether.showBalance();
+        balance.setText(bal);
         qrcodegen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

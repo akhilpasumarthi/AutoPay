@@ -42,7 +42,7 @@
         android:ems="10"
         android:fontFamily="@font/open_sans_semibold"
         android:hint="Enter the amount"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
