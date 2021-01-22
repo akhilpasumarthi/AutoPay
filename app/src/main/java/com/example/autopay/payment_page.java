@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class payment_page extends AppCompatActivity {
     String to_address = "";
     String to_user = "",user="";
     TextView name1;
+    ProgressBar paymentprogress;
     String ts;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
@@ -37,6 +39,7 @@ public class payment_page extends AppCompatActivity {
         setContentView(R.layout.activity_payment_page);
         toaddress = getIntent().getStringExtra("toaddress");
         name1 =(TextView) findViewById(R.id.name1);
+        paymentprogress=(ProgressBar) findViewById(R.id.paymentprogress);
 
         payamount=findViewById(R.id.sendamount);
         smsg=findViewById(R.id.smsg);
@@ -58,6 +61,7 @@ public class payment_page extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                paymentprogress.setVisibility(View.VISIBLE);
                 try {
                     Long amt=Long.parseLong(payamount.getText().toString());
                     ethereum e = new ethereum();
