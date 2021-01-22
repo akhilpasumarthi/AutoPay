@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,6 +108,7 @@ public class Transactions_list extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         from_address=documentSnapshot.getString("walletaddress");
+
                                         DocumentReference documentReference=firebaseFirestore.collection("merchants")
                                                 .document(merchant_uid).collection("transactions").document();
                                         Map<String,Object> payments=new HashMap<>();
@@ -117,9 +119,11 @@ public class Transactions_list extends AppCompatActivity {
                                         documentReference.set(payments).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(Transactions_list.this, "Successfully stored in merchants", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Transactions_list.this, "Transaction successful", Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
                                             }
                                         });
+
                                     }
                                 });
 
@@ -129,9 +133,8 @@ public class Transactions_list extends AppCompatActivity {
                     }
                  });
 
+                //Toast.makeText(Transactions_list.this, "Success", Toast.LENGTH_SHORT).show();
 
-                Toast.makeText(Transactions_list.this, "Success", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
             }
         });
 
@@ -153,7 +156,10 @@ public class Transactions_list extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull transactionviewholder holder, int position, @NonNull trasaction model) {
                 holder.list_from.setText("From: "+model.getFrom());
-                holder.list_to.setText(String.valueOf(model.getTimestamp()));
+                holder.amountview.setText("Amount: "+model.getAmount()+"");
+                Timestamp ts=new Timestamp(Long.parseLong(String.valueOf(model.getTimestamp())));
+                //System.out.println(String.valueOf(ts));
+                holder.list_to.setText(String.valueOf(ts));
                 if(model.getStatus().equals("unpaid")){
                     holder.status1.setVisibility(View.VISIBLE);
                     holder.paid.setVisibility(View.INVISIBLE);
@@ -208,7 +214,7 @@ public class Transactions_list extends AppCompatActivity {
             };
 
     private class transactionviewholder extends RecyclerView.ViewHolder {
-        private TextView list_from,paid;
+        private TextView list_from,paid,amountview;
         private TextView list_to;
         private Button status1;
         //private ImageView img;
@@ -218,6 +224,7 @@ public class Transactions_list extends AppCompatActivity {
             list_to=itemView.findViewById(R.id.listto);
             paid=itemView.findViewById(R.id.paid);
             status1=itemView.findViewById(R.id.status1);
+            amountview=itemView.findViewById(R.id.amountview);
            // img=(ImageView) findViewById(R.id.pic);
         }
     }
