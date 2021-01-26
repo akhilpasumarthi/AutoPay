@@ -103,7 +103,7 @@ public class Dashboard extends AppCompatActivity {
         });
 
         firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid())
-                .collection("transactions") //.whereGreaterThanOrEqualTo("timestamp", month)
+                .collection("transactions").whereGreaterThanOrEqualTo("timestamp", month)
                 .whereEqualTo("type", "fuel").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -117,7 +117,7 @@ public class Dashboard extends AppCompatActivity {
         });
 
         firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid())
-                .collection("transactions") //.whereGreaterThanOrEqualTo("timestamp", month)
+                .collection("transactions").whereGreaterThanOrEqualTo("timestamp", month)
                 .whereEqualTo("type", "toll").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -131,7 +131,7 @@ public class Dashboard extends AppCompatActivity {
         });
 
         firebaseFirestore.collection("users").document(firebaseAuth.getCurrentUser().getUid())
-                .collection("transactions") //.whereGreaterThanOrEqualTo("timestamp", month)
+                .collection("transactions").whereGreaterThanOrEqualTo("timestamp", month)
                 .whereEqualTo("type", "parking").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
