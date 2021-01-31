@@ -24,7 +24,7 @@ import java.util.List;
 
 public class Dashboard extends AppCompatActivity {
     public void pic(View view){
-        startActivity(new Intent(Dashboard.this,ethereum.class));
+        startActivity(new Intent(Dashboard.this,registration.class));
     }
     ImageView qrcodegen;
     TextView showbal;
@@ -193,7 +193,7 @@ public class Dashboard extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id=item.getItemId();
         if(id == R.id.location){
-            startActivity(new Intent(Dashboard.this,MapsActivity.class));
+            startActivity(new Intent(Dashboard.this,Mapsview.class));
         }else if(id == R.id.scanner){
             startActivity(new Intent(Dashboard.this,QR_Scanner.class));
 

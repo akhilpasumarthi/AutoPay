@@ -3,4 +3,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="radio_male">Male</string>
     <string name="radio_female">Female</string>
+    <string name="google_map_key">AIzaSyArJzFNe1UoSEVHCjaAmEL9zVZKv8Nrkj8</string>
 </resources>

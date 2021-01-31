@@ -123,7 +123,7 @@ public class payment_page extends AppCompatActivity {
                                             documentReference1.set(to_doc).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
+                                                    //Toast.makeText(getApplicationContext(),"Transaction Completed", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(payment_page.this,Dashboard.class));
                                                 }
                                             });
