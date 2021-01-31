@@ -31,6 +31,7 @@ public class payment_page extends AppCompatActivity {
     TextView name1;
     ProgressBar paymentprogress;
     String ts;
+    public String storage;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     @Override
@@ -63,11 +64,12 @@ public class payment_page extends AppCompatActivity {
             public void onClick(View v) {
                 paymentprogress.setVisibility(View.VISIBLE);
                 try {
+                    send.setEnabled(false);
                     Long amt=Long.parseLong(payamount.getText().toString());
                     ethereum e = new ethereum();
                     String net = e.connectToEthNetwork(v);
                     //Toast.makeText(getApplicationContext(), net, Toast.LENGTH_LONG).show();
-                    String address = e.sendTransaction(v,amt, toaddress);
+                    //String address = e.sendTransaction(v,amt, toaddress);
                     firebaseFirestore.collection("users")
                             .document(firebaseAuth.getCurrentUser().getUid())
                             .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -75,6 +77,8 @@ public class payment_page extends AppCompatActivity {
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             user = documentSnapshot.getString("name");
                             to_address = documentSnapshot.getString("walletaddress");
+                            storage = documentSnapshot.getString("storagepath");
+                            String address = e.sendTransaction(v,amt, toaddress,storage);
                             Log.i("Name",to_user);
                             DocumentReference documentReference=firebaseFirestore.collection("users")
                                     .document(firebaseAuth.getCurrentUser().getUid())
@@ -82,7 +86,7 @@ public class payment_page extends AppCompatActivity {
                             Long tsLong = System.currentTimeMillis();
                             //ts = tsLong.toString();
                             Map<String,Object> payments=new HashMap<>();
-                            payments.put("address","");
+                            payments.put("address","sender");
                             payments.put("status","paid");
                             payments.put("timestamp",tsLong);
                             payments.put("from_wallet", to_address);

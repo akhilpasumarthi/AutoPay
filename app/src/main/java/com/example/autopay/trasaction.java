@@ -5,6 +5,8 @@ public class trasaction {
     private long timestamp;
     private String status;
     private long amount;
+    private String address;
+    private String to;
     //private String type;
 
     private void transaction(){}
@@ -13,6 +15,8 @@ public class trasaction {
         this.timestamp=timestamp;
         this.status=status;
         this.amount=amount;
+        this.address=address;
+        this.to=to;
         //this.type=type;
     }
 
@@ -47,6 +51,22 @@ public class trasaction {
 
     public void setAmount(long amount) {
         this.amount = amount;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
     }
 
     // public String getType() {

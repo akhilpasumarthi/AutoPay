@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,8 @@ public class Transactions_list extends AppCompatActivity {
     String merchant_uid = "";
     String wallet_address = "";
     String from_address = "";
+    String storage;
+    ProgressBar dialogprogress;
     long r;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class Transactions_list extends AppCompatActivity {
         Button cancel=dialog.findViewById(R.id.cancel);
         amount=dialog.findViewById(R.id.amount);
         fromtxt=dialog.findViewById(R.id.fromtxt);
+        dialogprogress=dialog.findViewById(R.id.dialogprogress);
         firebaseFirestore=FirebaseFirestore.getInstance();
         flist=findViewById(R.id.flist);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -79,6 +83,8 @@ public class Transactions_list extends AppCompatActivity {
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialogprogress.setVisibility(View.VISIBLE);
+                btnpay.setEnabled(false);
                 ethereum e=new ethereum();
                 String msg=e.connectToEthNetwork(v);
                 String p=String.valueOf(r);
@@ -95,7 +101,13 @@ public class Transactions_list extends AppCompatActivity {
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                 wallet_address = documentSnapshot.getString("wallet");
                                 Log.i("ram ka adda",wallet_address);
-                                String address=e.sendTransaction(v, r, wallet_address);
+                                firebaseFirestore.collection("users")
+                                        .document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        from_address=documentSnapshot.getString("walletaddress");
+                                        storage = documentSnapshot.getString("storagepath");
+                                String address=e.sendTransaction(v, r, wallet_address,storage);
                                 Map<String,Object> users=new HashMap<>();
                                 users.put("transactionhash",address);
                                 users.put("status","paid");
@@ -103,11 +115,7 @@ public class Transactions_list extends AppCompatActivity {
                                         .document(firebaseAuth.getCurrentUser().getUid())
                                         .collection("transactions").document(selectedID).update(users);
                                 //Toast.makeText(Transactions_list.this,msg, Toast.LENGTH_SHORT).show();
-                                firebaseFirestore.collection("users")
-                                        .document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        from_address=documentSnapshot.getString("walletaddress");
+
 
                                         DocumentReference documentReference=firebaseFirestore.collection("merchants")
                                                 .document(merchant_uid).collection("transactions").document();
@@ -155,7 +163,13 @@ public class Transactions_list extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull transactionviewholder holder, int position, @NonNull trasaction model) {
-                holder.list_from.setText("From: "+model.getFrom());
+//                Log.i("raju",model.getAddress());
+//                Log.i("raju1",model.getTo());
+                if(model.getAddress().equals("sender")){
+                    holder.list_from.setText("To: "+model.getTo());
+                }else {
+                    holder.list_from.setText("From: " + model.getFrom());
+                }
                 holder.amountview.setText("Amount: "+model.getAmount()+"");
                 Timestamp ts=new Timestamp(Long.parseLong(String.valueOf(model.getTimestamp())));
                 //System.out.println(String.valueOf(ts));
@@ -200,12 +214,14 @@ public class Transactions_list extends AppCompatActivity {
                     switch (item.getItemId()){
                         case R.id.btmhome:
                             startActivity(new Intent(Transactions_list.this,Dashboard.class));
+                            overridePendingTransition(0,0);
                             return true;
                         case R.id.history:
                             overridePendingTransition(0,0);
                             return true;
                         case R.id.profile:
                             startActivity(new Intent(Transactions_list.this,profile.class));
+                            overridePendingTransition(0,0);
                             return true;
                     }
                     //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);

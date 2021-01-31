@@ -1,10 +1,6 @@
 package com.example.autopay;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.view.LayoutInflater;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,15 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-
-import org.web3j.protocol.core.Ethereum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,12 +101,14 @@ public class profile extends AppCompatActivity {
                     switch (item.getItemId()){
                         case R.id.btmhome:
                             startActivity(new Intent(profile.this,Dashboard.class));
+                            overridePendingTransition(0,0);
                             return true;
                         case R.id.history:
                             startActivity(new Intent(profile.this,Transactions_list.class));
                             overridePendingTransition(0,0);
                             return true;
                         case R.id.profile:
+                            overridePendingTransition(0,0);
                             return true;
                     }
                     //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);

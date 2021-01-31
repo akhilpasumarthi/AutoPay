@@ -278,9 +278,9 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView12"
-        android:layout_width="167dp"
-        android:layout_height="47dp"
+        android:id="@+id/showbal"
+        android:layout_width="169dp"
+        android:layout_height="37dp"
         android:layout_marginTop="60dp"
         android:text="RS.2222.00"
         android:textSize="30sp"
@@ -306,6 +306,7 @@
         android:layout_width="98dp"
         android:layout_height="79dp"
         android:layout_marginTop="28dp"
+        android:onClick="pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.878"
         app:layout_constraintStart_toStartOf="parent"

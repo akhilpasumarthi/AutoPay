@@ -5,20 +5,26 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashboard extends AppCompatActivity {
-    //public void btn(View view){
-       // startActivity(new Intent(Dashboard.this,registration.class));
-    //}
-    Button signout;
+    public void pic(View view){
+       startActivity(new Intent(Dashboard.this,ethereum.class));
+    }
     ImageView qrcodegen;
+    TextView showbal;
+    private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +33,24 @@ public class Dashboard extends AppCompatActivity {
         bottomnav.setSelectedItemId(R.id.btmhome);
         bottomnav.setOnNavigationItemSelectedListener(navlistener);
         qrcodegen=(ImageView) findViewById(R.id.qrcodegen);
+        showbal=(TextView)findViewById(R.id.showbal);
+        firebaseFirestore= FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore.collection("users")
+                .document(firebaseAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String waddress=documentSnapshot.getString("walletaddress");
+                View v = null;
+                ethereum e=new ethereum();
+                String msg=e.connectToEthNetwork(v);
+                String bal=e.showBalance(v,waddress);
+                //int balance1=Integer.parseInt(bal)*1000;
+                showbal.setText(bal);
+            }
+        });
+
+
         qrcodegen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +71,7 @@ public class Dashboard extends AppCompatActivity {
                             return true;
                         case R.id.profile:
                             startActivity(new Intent(Dashboard.this,profile.class));
+                            overridePendingTransition(0,0);
                             return true;
                     }
                     //getSupportFragmentManager().beginTransaction().replace(R.id.btmfragment,id1);

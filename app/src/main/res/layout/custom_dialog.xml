@@ -10,12 +10,13 @@
         android:id="@+id/fromtxt"
         android:layout_width="248dp"
         android:layout_height="44dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="124dp"
         android:text="FROM: RAM"
+        android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,12 +24,13 @@
         android:id="@+id/amount"
         android:layout_width="114dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="RS: 500"
+        android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fromtxt" />
 
@@ -65,5 +67,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.232"
         app:srcCompat="@android:drawable/checkbox_on_background" />
+
+    <ProgressBar
+        android:id="@+id/dialogprogress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="69dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="124dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

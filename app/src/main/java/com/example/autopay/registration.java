@@ -1,41 +1,24 @@
 package com.example.autopay;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
-import android.os.Environment;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.web3j.crypto.WalletUtils;
-import org.web3j.protocol.Web3j;
-
-import java.io.File;
-import java.security.Provider;
-import java.security.Security;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -101,7 +84,7 @@ public class registration extends AppCompatActivity {
                 String msg=e.createWallet(v);
                 String address=e.getAddress(v);
                 Toast.makeText(getApplicationContext(),msg, Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(),address, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),address, Toast.LENGTH_LONG).show();
 
 
                 String reguser=registeruser.getText().toString().trim();
@@ -122,6 +105,7 @@ public class registration extends AppCompatActivity {
                 user.put("privatekey","private");
                 user.put("email",ugmail);
                 user.put("pan",upan);
+                user.put("storagepath",msg);
 
                 documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
