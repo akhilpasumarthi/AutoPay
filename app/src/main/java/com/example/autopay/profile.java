@@ -56,17 +56,17 @@ public class profile extends AppCompatActivity {
               public void onClick(View v) {
                    if (toggleButton.isChecked()){
                        pay.put("paymentstatus","on");
-                       Toast.makeText(getApplicationContext(),"ToggleButton is ON",Toast.LENGTH_SHORT).show();
+                      // Toast.makeText(getApplicationContext(),"ToggleButton is ON",Toast.LENGTH_SHORT).show();
                    }else{
 
                        pay.put("paymentstatus","off");
-                       Toast.makeText(getApplicationContext(),"ToggleButton is OFF",Toast.LENGTH_SHORT).show();
+                       //Toast.makeText(getApplicationContext(),"ToggleButton is OFF",Toast.LENGTH_SHORT).show();
                    }
                    firebaseFirestore.collection("users")
                            .document(firebaseAuth.getCurrentUser().getUid()).update(pay).addOnSuccessListener(new OnSuccessListener<Void>() {
                        @Override
                        public void onSuccess(Void aVoid) {
-                           Toast.makeText(profile.this, "Added successfully", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(profile.this, "ToggleButton is ON", Toast.LENGTH_SHORT).show();
                        }
                    });
                }

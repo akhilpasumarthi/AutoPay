@@ -13,17 +13,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Document;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class payment_page extends AppCompatActivity {
@@ -81,7 +77,7 @@ public class payment_page extends AppCompatActivity {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             user = documentSnapshot.getString("name");
-                            to_address = documentSnapshot.getString("walletaddress");
+                            //to_address = documentSnapshot.getString("walletaddress");
                             storage = documentSnapshot.getString("storagepath");
                             String address = e.sendTransaction(v,amt, toaddress,storage);
                             from_address = documentSnapshot.getString("walletaddress");
@@ -93,6 +89,7 @@ public class payment_page extends AppCompatActivity {
                             Long tsLong = System.currentTimeMillis();
 
                             Map<String,Object> from_doc=new HashMap<>();
+                            from_doc.put("address","sender");
                             from_doc.put("message",smsg.getText().toString());
                             from_doc.put("status","paid");
                             from_doc.put("timestamp",tsLong);
@@ -103,6 +100,7 @@ public class payment_page extends AppCompatActivity {
                             from_doc.put("transactionhash",address);
 
                             Map<String,Object> to_doc=new HashMap<>();
+                            to_doc.put("address","receiver");
                             to_doc.put("message",smsg.getText().toString());
                             to_doc.put("status","paid");
                             to_doc.put("timestamp",tsLong);

@@ -165,10 +165,11 @@ public class Transactions_list extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull transactionviewholder holder, int position, @NonNull trasaction model) {
 //                Log.i("raju",model.getAddress());
 //                Log.i("raju1",model.getTo());
-                if(model.getAddress().equals("sender")){
-                    holder.list_from.setText("To: "+model.getTo());
-                }else {
+                if(model.getAddress().equals("receiver")){
                     holder.list_from.setText("From: " + model.getFrom());
+
+                }else {
+                    holder.list_from.setText("To: "+model.getTo());
                 }
                 holder.amountview.setText("Amount: "+model.getAmount()+"");
                 Timestamp ts=new Timestamp(Long.parseLong(String.valueOf(model.getTimestamp())));
@@ -182,7 +183,7 @@ public class Transactions_list extends AppCompatActivity {
                         public void onClick(View v) {
                             dialog.show();
                             amount.setText(model.getAmount()+"");
-                            fromtxt.setText("Address: "+model.getFrom());
+                            fromtxt.setText("Address: "+model.getTo());
                             r=model.getAmount();
                             fromuser=model.getFrom();
                             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
